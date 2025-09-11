@@ -1,0 +1,89 @@
+{
+    "name": "audit_record",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "description": "",
+    "type": "object",
+    "id": "_EN_gwofpqiigk",
+    "y": 98,
+    "properties": {
+        "id": {
+            "name": "id",
+            "format": "",
+            "type": "number",
+            "description": "",
+            "default": "",
+            "__n__metadata__": {
+                "id": "_Att_84ivdj1l24",
+                "nullable": false
+            }
+        },
+        "timestamp": {
+            "name": "timestamp",
+            "format": "date-time",
+            "type": "string",
+            "description": "",
+            "default": "",
+            "__n__metadata__": {
+                "id": "_Att_8gfi3crs9r",
+                "subCategoryType": "date",
+                "nullable": false,
+                "constraints": {}
+            }
+        },
+        "operation": {
+            "name": "operation",
+            "format": "",
+            "type": "string",
+            "description": "",
+            "default": "",
+            "__n__metadata__": {
+                "id": "_Att_17miz9gc3p",
+                "subCategoryType": null,
+                "nullable": false
+            }
+        },
+        "resource_id": {
+            "name": "resource_id",
+            "format": "",
+            "type": "number",
+            "description": "",
+            "default": "",
+            "__n__metadata__": {
+                "id": "_Att_8qeadd1w52",
+                "subCategoryType": null,
+                "nullable": true,
+                "constraints": {}
+            }
+        },
+        "user_id": {
+            "name": "user_id",
+            "format": "",
+            "type": "string",
+            "description": "",
+            "default": "",
+            "__n__metadata__": {
+                "id": "_Att_4oluoce87k",
+                "subCategoryType": null,
+                "nullable": true
+            }
+        }
+    },
+    "required": [
+        "timestamp",
+        "operation"
+    ],
+    "value": "",
+    "__attributeExpansion__": true,
+    "__operationExpansion__": true,
+    "x": 350.890625,
+    "__n__metadata__": {
+        "operations": [
+            {
+                "name": "create"
+            },
+            {
+                "name": "find-all"
+            }
+        ]
+    }
+}

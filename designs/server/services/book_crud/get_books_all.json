@@ -1,0 +1,483 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
+        "type": "tab",
+        "createdDate": "2025-09-08T09:55:44.906Z",
+        "label": "get_books_all",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "get_books_all",
+        "relativeParentPath": "book_crud"
+    },
+    {
+        "id": "sd_yposWwdswmuadTP5",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "get-all-books",
+        "path": "/books",
+        "uploadpath": "",
+        "summary": "",
+        "description": "",
+        "method": "get",
+        "sequenceId": "",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "useDataModel": false,
+        "dataModelIsArray": false,
+        "uploadFileOptions": "",
+        "erd": "",
+        "erdName": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "responses": [],
+            "params": [],
+            "produces": [],
+            "consumes": []
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "validateRequestUsingSwaggerDocs": false,
+        "category": "HTTP",
+        "x": 125,
+        "y": 100,
+        "wires": [
+            [
+                "sd_Zt9sD5O30Bv8uukJ"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "get_books_all",
+        "functionName": "sd_yposWwdswmuadTP5"
+    },
+    {
+        "id": "sd_RQf3yge2hIy5xwo3",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "response",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 200,
+            "obj": "bh.local.response",
+            "send": "bh.local.response"
+        },
+        "dataModelIsArray": false,
+        "cookies": [],
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_RQf3yge2hIy5xwo3",
+        "category": "HTTP",
+        "x": 625,
+        "y": 100,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_books_all",
+        "generated": true
+    },
+    {
+        "id": "sd_Zt9sD5O30Bv8uukJ",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "console.log(\"query\", bh.input.query);\n\nlet page = parseInt(bh.input.query.page) || 1;\nlet limit =  parseInt(bh.input.query.limit) || 5;\nlet skip = (page - 1) * limit;\n\nbh.local.limit=limit\nbh.local.skip=skip\nbh.local.pipeline=[{$match:{}},{$skip:skip},{$limit:limit}]\n\n",
+        "functionName": "sd_Zt9sD5O30Bv8uukJ",
+        "category": "Function",
+        "x": 225,
+        "y": 100,
+        "wires": [
+            [
+                "sd_jApssqRx5eOoYuTv"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_books_all",
+        "generated": true
+    },
+    {
+        "id": "sd_hFxAVNik7wrY0Njs",
+        "type": "Mongodb",
+        "z": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "databaseConfig": "sd_SsGwZHR2Z3WiKBs9",
+        "collection": "\"books\"",
+        "options": "bh.web",
+        "resultMapping": "bh.local.docsCount",
+        "operation": "countDocuments",
+        "argumentArray": [
+            "query",
+            "options"
+        ],
+        "aggregate": "",
+        "operations": "",
+        "query": "bh.web",
+        "fieldOrSpec": "",
+        "filter": "",
+        "key": "",
+        "docId": "",
+        "indexName": "",
+        "replacement": "",
+        "update": "",
+        "xAxis": "",
+        "yAxis": "",
+        "indexes": "",
+        "docs": "",
+        "document": "",
+        "newName": "",
+        "doc": "",
+        "filePath": "",
+        "fileName": "",
+        "pipeline": "",
+        "functionName": "sd_hFxAVNik7wrY0Njs",
+        "category": "Storage",
+        "x": 325,
+        "y": 240,
+        "wires": [
+            []
+        ],
+        "__ssdTypeInputs__": {
+            "collection": {
+                "type": "str",
+                "value": "books",
+                "constant": false
+            },
+            "options": {
+                "type": "bh",
+                "value": "web",
+                "constant": false
+            },
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "docsCount",
+                "constant": false
+            },
+            "query": {
+                "type": "bh",
+                "value": "web",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_books_all",
+        "generated": true
+    },
+    {
+        "id": "sd_jwkXo8Ln3q3VF9CX",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "\nbh.local.response={\n    totalDocuments:bh.local.result[0].local.docsCount.count,\n    bookData:bh.local.result[1].local.bookData,\n    limit:bh.local.limit\n}\n\n// console.log(' ===>' ,bh.local.response)",
+        "functionName": "sd_jwkXo8Ln3q3VF9CX",
+        "category": "Function",
+        "x": 485,
+        "y": 100,
+        "wires": [
+            [
+                "sd_RQf3yge2hIy5xwo3"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_books_all",
+        "generated": true
+    },
+    {
+        "id": "sd_lpujAFTkOJU4Ickr",
+        "type": "Start",
+        "z": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
+        "viewType": "client-server",
+        "nodeType": "start",
+        "name": "countDocuments of books",
+        "outputs": 1,
+        "inputVariables": [],
+        "localVariables": [
+            {
+                "key": "docsCount",
+                "defaultValue": {
+                    "type": "any",
+                    "value": ""
+                },
+                "output": true
+            }
+        ],
+        "accept_bh": false,
+        "functionName": "countDocumentsOfBooks",
+        "category": "General",
+        "x": 185,
+        "y": 240,
+        "wires": [
+            [
+                "sd_hFxAVNik7wrY0Njs"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "get_books_all"
+    },
+    {
+        "id": "sd_jApssqRx5eOoYuTv",
+        "type": "Async",
+        "z": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
+        "viewType": "client-server",
+        "nodeType": "flow",
+        "name": "",
+        "flowNodes": [
+            {
+                "serviceId": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
+                "serviceName": "get_books_all",
+                "flowId": "sd_lpujAFTkOJU4Ickr",
+                "functionName": "countDocumentsOfBooks",
+                "inputParams": [],
+                "inputVariables": [],
+                "accept_bh": false,
+                "randomVal": 376048,
+                "relativePath": "./get_books_all"
+            },
+            {
+                "serviceId": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
+                "serviceName": "get_books_all",
+                "flowId": "sd_ofhL4tJiHS6w3mxG",
+                "functionName": "fetchPaginatedBooksData",
+                "inputParams": [
+                    "bh.local.pipeline"
+                ],
+                "inputVariables": [
+                    {
+                        "key": "pipeline",
+                        "map": true,
+                        "valueType": "bh.local",
+                        "value": "pipeline"
+                    }
+                ],
+                "accept_bh": false,
+                "randomVal": 572335,
+                "relativePath": "./get_books_all"
+            }
+        ],
+        "_flowNodes": [
+            {
+                "serviceId": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
+                "serviceName": "get_books_all",
+                "flowId": "sd_lpujAFTkOJU4Ickr",
+                "functionName": "countDocumentsOfBooks",
+                "inputParams": [],
+                "inputVariables": [],
+                "accept_bh": false,
+                "randomVal": 376048,
+                "relativePath": "./get_books_all"
+            },
+            {
+                "serviceId": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
+                "serviceName": "get_books_all",
+                "flowId": "sd_ofhL4tJiHS6w3mxG",
+                "functionName": "fetchPaginatedBooksData",
+                "inputParams": [
+                    "bh.local.pipeline"
+                ],
+                "inputVariables": [
+                    {
+                        "key": "pipeline",
+                        "map": true,
+                        "valueType": "bh.local",
+                        "value": "pipeline"
+                    }
+                ],
+                "accept_bh": false,
+                "randomVal": 572335,
+                "relativePath": "./get_books_all"
+            }
+        ],
+        "resultMapping": "bh.local.result",
+        "isValidNode": true,
+        "functionName": "sd_jApssqRx5eOoYuTv",
+        "category": "Function",
+        "x": 365,
+        "y": 100,
+        "wires": [
+            [
+                "sd_jwkXo8Ln3q3VF9CX"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "result",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_books_all",
+        "generated": true
+    },
+    {
+        "id": "sd_TTi44D0nuM3T0w8V",
+        "type": "Mongodb",
+        "z": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "databaseConfig": "sd_SsGwZHR2Z3WiKBs9",
+        "collection": "\"books\"",
+        "options": "bh.local.body",
+        "resultMapping": "bh.local.bookData",
+        "operation": "aggregate",
+        "argumentArray": [
+            "aggregate",
+            "options"
+        ],
+        "aggregate": "bh.input.pipeline",
+        "operations": "",
+        "query": "bh.local.query",
+        "fieldOrSpec": "",
+        "filter": "",
+        "key": "",
+        "docId": "",
+        "indexName": "",
+        "replacement": "",
+        "update": "",
+        "xAxis": "",
+        "yAxis": "",
+        "indexes": "",
+        "docs": "",
+        "document": "",
+        "newName": "",
+        "doc": "",
+        "filePath": "",
+        "fileName": "",
+        "pipeline": "",
+        "functionName": "sd_TTi44D0nuM3T0w8V",
+        "category": "Storage",
+        "x": 325,
+        "y": 340,
+        "wires": [
+            []
+        ],
+        "__ssdTypeInputs__": {
+            "collection": {
+                "type": "str",
+                "value": "books",
+                "constant": false
+            },
+            "options": {
+                "type": "bh.local",
+                "value": "body",
+                "constant": false
+            },
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "bookData",
+                "constant": false
+            },
+            "query": {
+                "type": "bh.local",
+                "value": "query",
+                "constant": false
+            },
+            "aggregate": {
+                "type": "bh.input",
+                "value": "pipeline",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_books_all",
+        "generated": true
+    },
+    {
+        "id": "sd_ofhL4tJiHS6w3mxG",
+        "type": "Start",
+        "z": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
+        "viewType": "client-server",
+        "nodeType": "start",
+        "name": "fetch paginated books data ",
+        "outputs": 1,
+        "inputVariables": [
+            {
+                "key": "pipeline",
+                "defaultValue": {
+                    "type": "any",
+                    "value": ""
+                },
+                "output": false
+            }
+        ],
+        "localVariables": [
+            {
+                "key": "bookData",
+                "defaultValue": {
+                    "type": "any",
+                    "value": ""
+                },
+                "output": true
+            }
+        ],
+        "accept_bh": false,
+        "functionName": "fetchPaginatedBooksData",
+        "category": "General",
+        "x": 185,
+        "y": 340,
+        "wires": [
+            [
+                "sd_TTi44D0nuM3T0w8V"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "get_books_all"
+    }
+]

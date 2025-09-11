@@ -1,0 +1,99 @@
+{
+    "name": "books",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "description": "",
+    "type": "object",
+    "id": "_EN_qwv8wq6qon",
+    "y": 96,
+    "properties": {
+        "id": {
+            "name": "id",
+            "format": "",
+            "type": "number",
+            "description": "",
+            "default": "",
+            "__n__metadata__": {
+                "id": "_Att_9yaai9kas5",
+                "nullable": false
+            }
+        },
+        "isbn": {
+            "name": "isbn",
+            "format": "",
+            "type": "string",
+            "description": "",
+            "default": "",
+            "__n__metadata__": {
+                "id": "_Att_nc40abllzg",
+                "subCategoryType": null,
+                "nullable": false
+            }
+        },
+        "title": {
+            "name": "title",
+            "format": "",
+            "type": "string",
+            "description": "",
+            "default": "",
+            "__n__metadata__": {
+                "id": "_Att_wxftlimn39",
+                "subCategoryType": null,
+                "nullable": false
+            }
+        },
+        "publishers": {
+            "name": "publishers",
+            "format": "",
+            "type": "string",
+            "description": "",
+            "default": "",
+            "__n__metadata__": {
+                "id": "_Att_l6y3zpjj7m",
+                "subCategoryType": null,
+                "nullable": false
+            }
+        },
+        "published_year": {
+            "name": "published_year",
+            "format": "",
+            "type": "number",
+            "description": "",
+            "default": "",
+            "__n__metadata__": {
+                "id": "_Att_k1t19vdbcp",
+                "subCategoryType": null,
+                "nullable": false,
+                "constraints": {}
+            }
+        }
+    },
+    "required": [
+        "isbn",
+        "title",
+        "publishers",
+        "published_year"
+    ],
+    "value": "",
+    "__attributeExpansion__": true,
+    "__operationExpansion__": true,
+    "x": 299.890625,
+    "__n__metadata__": {
+        "operations": [
+            {
+                "name": "create"
+            },
+            {
+                "name": "delete-by-id"
+            },
+            {
+                "name": "find-all"
+            },
+            {
+                "name": "find-by-id"
+            },
+            {
+                "name": "update-by-id"
+            }
+        ]
+    }
+}

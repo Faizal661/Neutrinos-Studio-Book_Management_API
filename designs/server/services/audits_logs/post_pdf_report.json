@@ -1,0 +1,383 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_Cai4hEDise9lBbSA",
+        "type": "tab",
+        "createdDate": "2025-09-09T07:39:10.958Z",
+        "label": "post_pdf_report",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "post_pdf_report",
+        "relativeParentPath": "audits_logs"
+    },
+    {
+        "id": "sd_Uhfjw7ksyDPV8QOZ",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_Cai4hEDise9lBbSA",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "",
+        "path": "/audits/report/pdf",
+        "uploadpath": "",
+        "summary": "",
+        "description": "",
+        "method": "get",
+        "sequenceId": "",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "useDataModel": false,
+        "dataModelIsArray": false,
+        "erd": "",
+        "erdName": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "responses": [],
+            "params": [],
+            "produces": [],
+            "consumes": []
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "validateRequestUsingSwaggerDocs": false,
+        "category": "HTTP",
+        "x": 165,
+        "y": 180,
+        "wires": [
+            [
+                "sd_kaY02o3IP1brFCw0"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "post_pdf_report",
+        "functionName": "sd_Uhfjw7ksyDPV8QOZ"
+    },
+    {
+        "id": "sd_L7TfufX3NTSAyO8t",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_Cai4hEDise9lBbSA",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {
+            "Content-Type": "application/pdf",
+            "Content-Disposition": "attachment; filename=\"audit-report.pdf\""
+        },
+        "responseBody": {
+            "type": "str",
+            "value": "audit-report.pdf",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "file",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 200,
+            "file": "\"audit-report.pdf\""
+        },
+        "dataModelIsArray": false,
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/pdf",
+                    "rowId": "sd_rgLHcNAyejT40EKl",
+                    "valid": true
+                },
+                {
+                    "key": "Content-Disposition",
+                    "value": "attachment; filename=\"audit-report.pdf\"",
+                    "rowId": "sd_z3EeHQwqb3cu6OWl",
+                    "valid": true
+                }
+            ],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_L7TfufX3NTSAyO8t",
+        "category": "HTTP",
+        "x": 785,
+        "y": 180,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "post_pdf_report",
+        "generated": true
+    },
+    {
+        "id": "sd_kaY02o3IP1brFCw0",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_Cai4hEDise9lBbSA",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "console.log(\"query  === \", bh.input.query);\n\nif(bh.input.query?.startDate==='null'){\n  bh.input.query.startDate=JSON.stringify(new Date(null))\n}\n\nlet operations = bh.input.query?.operations ? JSON.parse(bh.input.query.operations) : [];\nlet startDate = bh.input.query?.startDate ? new Date(JSON.parse(bh.input.query.startDate)) : null;\nlet endDate = bh.input.query?.endDate ? new Date(JSON.parse(bh.input.query.endDate)) : null;\n\n\nconst filter = {};\n\nif (operations && operations.length > 0) {\n  filter['operation'] = { '$in': operations };\n}\n\nif (isValidDate(startDate) && isValidDate(endDate)) {\n  filter['timestamp'] = { '$gte': JSON.parse(bh.input.query.startDate), '$lte': JSON.parse(bh.input.query.endDate) };\n}\n\n\nfunction isValidDate(date) {\n  return date instanceof Date && !isNaN(date);\n}\n\n\nbh.local.filter = filter;\n\nconsole.log('filter = = = =', bh.local.filter )\n",
+        "functionName": "sd_kaY02o3IP1brFCw0",
+        "category": "Function",
+        "x": 265,
+        "y": 180,
+        "wires": [
+            [
+                "sd_6MiQeYcc0ZsvjZIx"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "post_pdf_report",
+        "generated": true
+    },
+    {
+        "id": "sd_VMsRcbdSccsu7MZF",
+        "type": "ServerHttpRequest",
+        "z": "SSD_SERVICE_ID_sd_Cai4hEDise9lBbSA",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "audit http req",
+        "method": "post",
+        "methodMapping": "",
+        "methodMappingObj": {},
+        "urlMapping": "bh.local.insertAuditURL",
+        "urlMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "insertAuditURL"
+        },
+        "ret": "json",
+        "retMapping": "",
+        "retMappingObj": {},
+        "reqBody": "bh.local.auditDocument",
+        "reqBodyObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "auditDocument"
+        },
+        "resultMapping": "bh.local.audit_save_response",
+        "resultMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "audit_save_response"
+        },
+        "headers": {},
+        "headersObj": [],
+        "headerMapping": "",
+        "headerMappingObj": {},
+        "params": {},
+        "paramsObj": [],
+        "paramMapping": "",
+        "paramMappingObj": {},
+        "authType": "",
+        "useAuthTypeMappingObj": {},
+        "useAuthTypeMap": {},
+        "useAuthType": "",
+        "useAuthUsername": "",
+        "useAuthUsernameMappingObj": "",
+        "useAuthPassword": "",
+        "useAuthPasswordMappingObj": "",
+        "useAuthToken": "",
+        "useAuthTokenMappingObj": "",
+        "useQueryString": false,
+        "tls": "",
+        "followRedirect": true,
+        "paytoqs": false,
+        "useAuthentication": false,
+        "rejectUnauthorized": false,
+        "proxy": "",
+        "useProxy": false,
+        "usetls": false,
+        "cookies": [],
+        "cookiesMapObj": {},
+        "cookiesList": {},
+        "switchStates": {
+            "cookies": "Map"
+        },
+        "editableListData": {},
+        "timeout": {
+            "type": "num",
+            "value": ""
+        },
+        "functionName": "auditHttpReq",
+        "category": "HTTP",
+        "x": 685,
+        "y": 60,
+        "wires": [
+            [
+                "sd_oMKVPHH9Isparx4u"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "post_pdf_report"
+    },
+    {
+        "id": "sd_JRWRyjyFiTtDzHVx",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_Cai4hEDise9lBbSA",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "audit-logs",
+        "script": "bh.local.insertAuditURL = `http://localhost:8081/api/audits`;\n\nbh.local.auditDocument=  {\n    timestamp: new Date(),\n    operation: \"GENERATE_PDF\",\n    resourceId: 'N/A',\n    userId: \"Demo_id_12345678\"\n  }",
+        "functionName": "auditLogs",
+        "category": "Function",
+        "x": 585,
+        "y": 60,
+        "wires": [
+            [
+                "sd_VMsRcbdSccsu7MZF"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "post_pdf_report"
+    },
+    {
+        "id": "sd_oMKVPHH9Isparx4u",
+        "type": "ServerLog",
+        "z": "SSD_SERVICE_ID_sd_Cai4hEDise9lBbSA",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "audit log",
+        "outputs": 0,
+        "logObject": "bh.local.audit_save_response",
+        "logLevel": "info",
+        "functionName": "auditLog",
+        "category": "General",
+        "x": 785,
+        "y": 60,
+        "wires": [],
+        "__ssdTypeInputs__": {
+            "logObject": {
+                "type": "bh.local",
+                "value": "audit_save_response",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "post_pdf_report"
+    },
+    {
+        "id": "sd_6MiQeYcc0ZsvjZIx",
+        "type": "Mongodb",
+        "z": "SSD_SERVICE_ID_sd_Cai4hEDise9lBbSA",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "databaseConfig": "sd_SsGwZHR2Z3WiKBs9",
+        "collection": "\"audits\"",
+        "options": "bh.web",
+        "resultMapping": "bh.local.resultData",
+        "operation": "find",
+        "argumentArray": [
+            "query",
+            "options"
+        ],
+        "aggregate": "bh.local.pipeline",
+        "operations": "",
+        "query": "bh.local.filter",
+        "fieldOrSpec": "",
+        "filter": "",
+        "key": "",
+        "docId": "",
+        "indexName": "",
+        "replacement": "",
+        "update": "",
+        "xAxis": "",
+        "yAxis": "",
+        "indexes": "",
+        "docs": "",
+        "document": "",
+        "newName": "",
+        "doc": "",
+        "filePath": "",
+        "fileName": "",
+        "pipeline": "",
+        "functionName": "sd_6MiQeYcc0ZsvjZIx",
+        "category": "Storage",
+        "x": 385,
+        "y": 180,
+        "wires": [
+            [
+                "sd_3X7I1V7ziT9PZ7dj"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "collection": {
+                "type": "str",
+                "value": "audits",
+                "constant": false
+            },
+            "options": {
+                "type": "bh",
+                "value": "web",
+                "constant": false
+            },
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "resultData",
+                "constant": false
+            },
+            "query": {
+                "type": "bh.local",
+                "value": "filter",
+                "constant": false
+            },
+            "aggregate": {
+                "type": "bh.local",
+                "value": "pipeline",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "post_pdf_report",
+        "generated": true
+    },
+    {
+        "id": "sd_3X7I1V7ziT9PZ7dj",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_Cai4hEDise9lBbSA",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "console.log('resultData of pdf generate === ',bh.local.resultData)\n\nconst puppeteer = require(\"puppeteer\");\n\n(async function() {\n    await generateAuditPDF(bh.local.resultData, \"audit-report.pdf\");\n})()\n\n\nasync function generateAuditPDF(filteredAudits, pdfPath) {\n    const htmlContent = generateHTML(filteredAudits);\n    const browser = await puppeteer.launch();\n    const page = await browser.newPage();\n\n    await page.setContent(htmlContent);\n    await page.pdf({\n        format: \"A4\",\n        printBackground: true,\n        path: pdfPath,\n    });\n    await browser.close();\n}\n\n\nfunction generateHTML(audits) {\n  return `\n    <!DOCTYPE html>\n    <html lang=\"en\">\n    <head>\n      <meta charset=\"UTF-8\">\n      <title>Audit Report</title>\n      <style>\n        body { font-family: Arial, sans-serif; margin: 20px; }\n        h1 { text-align: center; }\n        table { width: 100%; border-collapse: collapse; margin-top: 20px; }\n        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }\n        th { background-color: #f4f4f4; }\n        tr:nth-child(even) { background-color: #f9f9f9; }\n      </style>\n    </head>\n    <body>\n      <h1>Audit Report</h1>\n      <table>\n        <thead>\n          <tr>\n            <th>ID</th>\n            <th>Timestamp</th>\n            <th>Operation</th>\n            <th>Resource ID</th>\n            <th>User ID</th>\n          </tr>\n        </thead>\n        <tbody>\n          ${audits\n            .map(\n              (audit) => `\n            <tr>\n              <td>${audit.id}</td>\n              <td>${audit.timestamp}</td>\n              <td>${audit.operation}</td>\n              <td>${audit.resourceId !== null ? audit.resourceId : \"N/A\"}</td>\n              <td>${audit.userId || \"N/A\"}</td>\n            </tr>\n          `,\n            )\n            .join(\"\")}\n        </tbody>\n      </table>\n    </body>\n    </html>\n  `;\n}",
+        "functionName": "sd_3X7I1V7ziT9PZ7dj",
+        "category": "Function",
+        "x": 500,
+        "y": 180,
+        "wires": [
+            [
+                "sd_L7TfufX3NTSAyO8t"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "post_pdf_report",
+        "generated": true
+    }
+]

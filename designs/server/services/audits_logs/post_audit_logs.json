@@ -1,0 +1,221 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_ucvFL7JloazU7qcI",
+        "type": "tab",
+        "createdDate": "2025-09-08T10:29:14.094Z",
+        "label": "post_audit_logs",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "post_audit_logs",
+        "relativeParentPath": "audits_logs"
+    },
+    {
+        "id": "sd_1hvpPewTiRIcbqJW",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_ucvFL7JloazU7qcI",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "",
+        "path": "/audits",
+        "uploadpath": "",
+        "summary": "",
+        "description": "",
+        "method": "post",
+        "sequenceId": "",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "useDataModel": false,
+        "dataModelIsArray": false,
+        "erd": "",
+        "erdName": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "responses": [],
+            "params": [],
+            "produces": [],
+            "consumes": []
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "validateRequestUsingSwaggerDocs": false,
+        "category": "HTTP",
+        "x": 185,
+        "y": 160,
+        "wires": [
+            [
+                "sd_P5YYkYKw8OSuKeMU"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "post_audit_logs",
+        "functionName": "sd_1hvpPewTiRIcbqJW"
+    },
+    {
+        "id": "sd_0UFMhDtbXgtYBmcx",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_ucvFL7JloazU7qcI",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "response",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 200,
+            "obj": "bh.local.response",
+            "send": "bh.local.response"
+        },
+        "dataModelIsArray": false,
+        "cookies": [],
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_0UFMhDtbXgtYBmcx",
+        "category": "HTTP",
+        "x": 640,
+        "y": 160,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "post_audit_logs",
+        "generated": true
+    },
+    {
+        "id": "sd_tqr3ZoKCKykIvaJd",
+        "type": "Mongodb",
+        "z": "SSD_SERVICE_ID_sd_ucvFL7JloazU7qcI",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "insert audit logs",
+        "databaseConfig": "sd_SsGwZHR2Z3WiKBs9",
+        "collection": "\"audits\"",
+        "options": "bh.web",
+        "resultMapping": "bh.local.response",
+        "operation": "insertOne",
+        "argumentArray": [
+            "document",
+            "options"
+        ],
+        "aggregate": "",
+        "operations": "",
+        "query": "bh",
+        "fieldOrSpec": "",
+        "filter": "",
+        "key": "",
+        "docId": "",
+        "indexName": "",
+        "replacement": "",
+        "update": "",
+        "xAxis": "",
+        "yAxis": "",
+        "indexes": "",
+        "docs": "",
+        "document": "bh.local.document",
+        "newName": "",
+        "doc": "",
+        "filePath": "",
+        "fileName": "",
+        "pipeline": "",
+        "functionName": "insertAuditLogs",
+        "category": "Storage",
+        "x": 465,
+        "y": 160,
+        "wires": [
+            [
+                "sd_0UFMhDtbXgtYBmcx"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "collection": {
+                "type": "str",
+                "value": "audits",
+                "constant": false
+            },
+            "options": {
+                "type": "bh",
+                "value": "web",
+                "constant": false
+            },
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "response",
+                "constant": false
+            },
+            "query": {
+                "type": "bh",
+                "value": "",
+                "constant": false
+            },
+            "document": {
+                "type": "bh.local",
+                "value": "document",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "post_audit_logs",
+        "generated": true
+    },
+    {
+        "id": "sd_P5YYkYKw8OSuKeMU",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_ucvFL7JloazU7qcI",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "insert document",
+        "script": "bh.local.document=bh.input.body\n\nconsole.log('inside audit save ==>',bh.input.body)",
+        "functionName": "insertDocument",
+        "category": "Function",
+        "x": 320,
+        "y": 160,
+        "wires": [
+            [
+                "sd_tqr3ZoKCKykIvaJd"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "post_audit_logs",
+        "generated": true
+    }
+]

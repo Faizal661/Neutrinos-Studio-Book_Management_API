@@ -1,0 +1,496 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS",
+        "type": "tab",
+        "createdDate": "2025-09-08T09:57:51.189Z",
+        "label": "delete_book",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "delete_book",
+        "relativeParentPath": "book_crud"
+    },
+    {
+        "id": "sd_baIdz3cLGtXKcvKh",
+        "type": "Mongodb",
+        "z": "SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "deleteBook",
+        "databaseConfig": "sd_SsGwZHR2Z3WiKBs9",
+        "collection": "\"books\"",
+        "options": "bh.web",
+        "resultMapping": "bh.local.result",
+        "operation": "findOneAndDelete",
+        "argumentArray": [
+            "filter",
+            "options"
+        ],
+        "aggregate": "",
+        "operations": "",
+        "query": "bh.body",
+        "fieldOrSpec": "",
+        "filter": "bh.local.filter",
+        "key": "",
+        "docId": "",
+        "indexName": "",
+        "replacement": "",
+        "update": "",
+        "xAxis": "",
+        "yAxis": "",
+        "indexes": "",
+        "docs": "",
+        "document": "",
+        "newName": "",
+        "doc": "",
+        "filePath": "",
+        "fileName": "",
+        "pipeline": "",
+        "functionName": "deleteBook",
+        "category": "Storage",
+        "x": 345,
+        "y": 200,
+        "wires": [
+            [
+                "sd_NHln4YCfRGQpA39p",
+                "sd_JTGJogBJZf2MT7ir"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "collection": {
+                "type": "str",
+                "value": "books",
+                "constant": false
+            },
+            "options": {
+                "type": "bh",
+                "value": "web",
+                "constant": false
+            },
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "result",
+                "constant": false
+            },
+            "query": {
+                "type": "bh",
+                "value": "body",
+                "constant": false
+            },
+            "filter": {
+                "type": "bh.local",
+                "value": "filter",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "delete_book",
+        "generated": true
+    },
+    {
+        "id": "sd_0BZtispv1y1i3njz",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "delete-one-book",
+        "path": "/books/:isbn",
+        "uploadpath": "",
+        "summary": "",
+        "description": "",
+        "method": "delete",
+        "sequenceId": "",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "useDataModel": false,
+        "dataModelIsArray": false,
+        "uploadFileOptions": "",
+        "erd": "",
+        "erdName": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "responses": [],
+            "params": [],
+            "produces": [],
+            "consumes": []
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "validateRequestUsingSwaggerDocs": false,
+        "category": "HTTP",
+        "x": 120,
+        "y": 200,
+        "wires": [
+            [
+                "sd_dNQ7pbG3cNCzekuh"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "delete_book",
+        "functionName": "sd_0BZtispv1y1i3njz"
+    },
+    {
+        "id": "sd_o84CzpWSOXuOmE0x",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "result",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 200,
+            "obj": "bh.local.result",
+            "send": "bh.local.result"
+        },
+        "dataModelIsArray": false,
+        "cookies": [],
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_o84CzpWSOXuOmE0x",
+        "category": "HTTP",
+        "x": 665,
+        "y": 200,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "delete_book",
+        "generated": true
+    },
+    {
+        "id": "sd_NHln4YCfRGQpA39p",
+        "type": "ServerLog",
+        "z": "SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "delete log",
+        "outputs": 0,
+        "logObject": "bh.local.result",
+        "logLevel": "info",
+        "functionName": "deleteLog",
+        "category": "General",
+        "x": 445,
+        "y": 260,
+        "wires": [],
+        "__ssdTypeInputs__": {
+            "logObject": {
+                "type": "bh.local",
+                "value": "result",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "delete_book",
+        "generated": true
+    },
+    {
+        "id": "sd_dNQ7pbG3cNCzekuh",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "console.log('aaa  ',bh.input.params.isbn)\n\n\nbh.local.filter = {\n  isbn:bh.input.params.isbn\n};",
+        "functionName": "sd_dNQ7pbG3cNCzekuh",
+        "category": "Function",
+        "x": 225,
+        "y": 200,
+        "wires": [
+            [
+                "sd_baIdz3cLGtXKcvKh"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "delete_book",
+        "generated": true
+    },
+    {
+        "id": "sd_JTGJogBJZf2MT7ir",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "bh.local.result={\n    ...bh.local.result,\n    status:200\n}",
+        "functionName": "sd_JTGJogBJZf2MT7ir",
+        "category": "Function",
+        "x": 525,
+        "y": 200,
+        "wires": [
+            [
+                "sd_o84CzpWSOXuOmE0x",
+                "sd_rUHOWtxid2ccxDMF"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "delete_book",
+        "generated": true
+    },
+    {
+        "id": "sd_r0FBm9025TLvstt0",
+        "type": "Catch",
+        "z": "SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS",
+        "viewType": "common",
+        "nodeType": "start",
+        "name": "",
+        "selectedNodes": "all-nodes",
+        "selectCatchType": "allnodes",
+        "masternodeList": "",
+        "ignoreList": [
+            "sd_K6be70jnj3la4liJ",
+            "sd_igH3KJxaYm5TMquy"
+        ],
+        "functionName": "sd_r0FBm9025TLvstt0",
+        "category": "General",
+        "x": 445,
+        "y": 380,
+        "wires": [
+            [
+                "sd_K6be70jnj3la4liJ"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "delete_book"
+    },
+    {
+        "id": "sd_igH3KJxaYm5TMquy",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "message",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 500,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 500,
+            "obj": "bh.local.message",
+            "send": "bh.local.message"
+        },
+        "dataModelIsArray": false,
+        "cookies": [],
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_igH3KJxaYm5TMquy",
+        "category": "HTTP",
+        "x": 665,
+        "y": 380,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "delete_book",
+        "generated": true
+    },
+    {
+        "id": "sd_K6be70jnj3la4liJ",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "console.log('error ===> ',bh.error.message)\n\nbh.local.message=bh.error.message || \"Failed to delete Book data\"",
+        "functionName": "sd_K6be70jnj3la4liJ",
+        "category": "Function",
+        "x": 545,
+        "y": 380,
+        "wires": [
+            [
+                "sd_igH3KJxaYm5TMquy"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "delete_book",
+        "generated": true
+    },
+    {
+        "id": "sd_ZHauTDGa0jn7tXx4",
+        "type": "ServerHttpRequest",
+        "z": "SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "audit http req",
+        "method": "post",
+        "methodMappingObj": {},
+        "urlMapping": "bh.local.insertAuditURL",
+        "urlMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "insertAuditURL"
+        },
+        "ret": "json",
+        "retMappingObj": {},
+        "reqBody": "bh.local.auditDocument",
+        "reqBodyObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "auditDocument"
+        },
+        "resultMapping": "bh.local.audit_save_response",
+        "resultMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "audit_save_response"
+        },
+        "headers": {},
+        "headersObj": [],
+        "headerMappingObj": {},
+        "params": {},
+        "paramsObj": [],
+        "paramMappingObj": {},
+        "useAuthTypeMappingObj": {},
+        "useAuthUsername": "",
+        "useAuthUsernameMappingObj": "",
+        "useAuthPassword": "",
+        "useAuthPasswordMappingObj": "",
+        "useAuthToken": "",
+        "useAuthTokenMappingObj": "",
+        "useQueryString": false,
+        "tls": "",
+        "followRedirect": true,
+        "paytoqs": false,
+        "useAuthentication": false,
+        "rejectUnauthorized": false,
+        "proxy": "",
+        "useProxy": false,
+        "usetls": false,
+        "cookiesMapObj": {},
+        "cookiesList": {},
+        "switchStates": {
+            "cookies": "Map"
+        },
+        "editableListData": {},
+        "timeout": {
+            "type": "num",
+            "value": ""
+        },
+        "functionName": "auditHttpReq",
+        "category": "HTTP",
+        "x": 685,
+        "y": 80,
+        "wires": [
+            [
+                "sd_kqLmxpOg7xYCUmUh"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "delete_book",
+        "generated": true
+    },
+    {
+        "id": "sd_rUHOWtxid2ccxDMF",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "audit-logs",
+        "script": "bh.local.insertAuditURL = `http://localhost:8081/api/audits`;\n\nbh.local.auditDocument=  {\n    timestamp: new Date(),\n    operation: \"DELETE_BOOK\",\n    resourceId: bh.input.params.isbn,\n    userId: \"Demo_id_12345678\"\n  }",
+        "functionName": "auditLogs",
+        "category": "Function",
+        "x": 585,
+        "y": 80,
+        "wires": [
+            [
+                "sd_ZHauTDGa0jn7tXx4"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "delete_book",
+        "generated": true
+    },
+    {
+        "id": "sd_kqLmxpOg7xYCUmUh",
+        "type": "ServerLog",
+        "z": "SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "audit log",
+        "outputs": 0,
+        "logObject": "bh.local.audit_save_response",
+        "logLevel": "info",
+        "functionName": "auditLog",
+        "category": "General",
+        "x": 785,
+        "y": 80,
+        "wires": [],
+        "__ssdTypeInputs__": {
+            "logObject": {
+                "type": "bh.local",
+                "value": "audit_save_response",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "delete_book",
+        "generated": true
+    }
+]

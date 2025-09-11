@@ -1,0 +1,33 @@
+//CORE_REFERENCE_IMPORTS
+//CORE_REFERENCE_IMPORT-findAllAuditRecords-DMOPS_ID_audit_record___EN_gwofpqiigk__findAllAuditRecords
+import { findAllAuditRecords as DMOPS_ID_audit_record___EN_gwofpqiigk__findAllAuditRecords } from './dm-services/audit_record/audit_record/findAllAuditRecords';
+//CORE_REFERENCE_IMPORT-createAuditRecord-DMOPS_ID_audit_record___EN_gwofpqiigk__createAuditRecord
+import { createAuditRecord as DMOPS_ID_audit_record___EN_gwofpqiigk__createAuditRecord } from './dm-services/audit_record/audit_record/createAuditRecord';
+//CORE_REFERENCE_IMPORT-updateBooksById-DMOPS_ID_books___EN_qwv8wq6qon__updateBooksById
+import { updateBooksById as DMOPS_ID_books___EN_qwv8wq6qon__updateBooksById } from './dm-services/books/books/updateBooksById';
+//CORE_REFERENCE_IMPORT-findBooksById-DMOPS_ID_books___EN_qwv8wq6qon__findBooksById
+import { findBooksById as DMOPS_ID_books___EN_qwv8wq6qon__findBooksById } from './dm-services/books/books/findBooksById';
+//CORE_REFERENCE_IMPORT-findAllBookss-DMOPS_ID_books___EN_qwv8wq6qon__findAllBookss
+import { findAllBookss as DMOPS_ID_books___EN_qwv8wq6qon__findAllBookss } from './dm-services/books/books/findAllBookss';
+//CORE_REFERENCE_IMPORT-deleteBooksById-DMOPS_ID_books___EN_qwv8wq6qon__deleteBooksById
+import { deleteBooksById as DMOPS_ID_books___EN_qwv8wq6qon__deleteBooksById } from './dm-services/books/books/deleteBooksById';
+//CORE_REFERENCE_IMPORT-createBooks-DMOPS_ID_books___EN_qwv8wq6qon__createBooks
+import { createBooks as DMOPS_ID_books___EN_qwv8wq6qon__createBooks } from './dm-services/books/books/createBooks';
+
+export const DmRoutes = [
+  //CORE_REFERENCE_PUSH_TO_ROUTE_ARRAY
+  //CORE_REFERENCE_PUSH_TO_ROUTE_ARRAY-findAllAuditRecords-DMOPS_ID_audit_record___EN_gwofpqiigk__findAllAuditRecords
+  DMOPS_ID_audit_record___EN_gwofpqiigk__findAllAuditRecords,
+  //CORE_REFERENCE_PUSH_TO_ROUTE_ARRAY-createAuditRecord-DMOPS_ID_audit_record___EN_gwofpqiigk__createAuditRecord
+  DMOPS_ID_audit_record___EN_gwofpqiigk__createAuditRecord,
+  //CORE_REFERENCE_PUSH_TO_ROUTE_ARRAY-updateBooksById-DMOPS_ID_books___EN_qwv8wq6qon__updateBooksById
+  DMOPS_ID_books___EN_qwv8wq6qon__updateBooksById,
+  //CORE_REFERENCE_PUSH_TO_ROUTE_ARRAY-findBooksById-DMOPS_ID_books___EN_qwv8wq6qon__findBooksById
+  DMOPS_ID_books___EN_qwv8wq6qon__findBooksById,
+  //CORE_REFERENCE_PUSH_TO_ROUTE_ARRAY-findAllBookss-DMOPS_ID_books___EN_qwv8wq6qon__findAllBookss
+  DMOPS_ID_books___EN_qwv8wq6qon__findAllBookss,
+  //CORE_REFERENCE_PUSH_TO_ROUTE_ARRAY-deleteBooksById-DMOPS_ID_books___EN_qwv8wq6qon__deleteBooksById
+  DMOPS_ID_books___EN_qwv8wq6qon__deleteBooksById,
+  //CORE_REFERENCE_PUSH_TO_ROUTE_ARRAY-createBooks-DMOPS_ID_books___EN_qwv8wq6qon__createBooks
+  DMOPS_ID_books___EN_qwv8wq6qon__createBooks,
+];

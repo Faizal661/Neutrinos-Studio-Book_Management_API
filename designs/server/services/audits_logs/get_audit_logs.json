@@ -1,0 +1,243 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_4ifSbVh4Wqcz8AjP",
+        "type": "tab",
+        "createdDate": "2025-09-08T10:29:25.199Z",
+        "label": "get_audit_logs",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "get_audit_logs",
+        "relativeParentPath": "audits_logs"
+    },
+    {
+        "id": "sd_wwdoS1qEORhMxEY5",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_4ifSbVh4Wqcz8AjP",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "",
+        "path": "/audits",
+        "uploadpath": "",
+        "summary": "",
+        "description": "",
+        "method": "get",
+        "sequenceId": "",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "useDataModel": false,
+        "dataModelIsArray": false,
+        "erd": "",
+        "erdName": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "responses": [],
+            "params": [],
+            "produces": [],
+            "consumes": []
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "validateRequestUsingSwaggerDocs": false,
+        "category": "HTTP",
+        "x": 125,
+        "y": 80,
+        "wires": [
+            [
+                "sd_7zS99wyPhOajPL6L"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "get_audit_logs",
+        "functionName": "sd_wwdoS1qEORhMxEY5"
+    },
+    {
+        "id": "sd_PePuXM0Vu2ViboKe",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_4ifSbVh4Wqcz8AjP",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "response",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 200,
+            "obj": "bh.local.response",
+            "send": "bh.local.response"
+        },
+        "dataModelIsArray": false,
+        "cookies": [],
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_PePuXM0Vu2ViboKe",
+        "category": "HTTP",
+        "x": 645,
+        "y": 80,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_audit_logs",
+        "generated": true
+    },
+    {
+        "id": "sd_7zS99wyPhOajPL6L",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_4ifSbVh4Wqcz8AjP",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "console.log(\"query\", bh.input.query);\nif(bh.input.query?.startDate==='null'){\n  bh.input.query.startDate=JSON.stringify(new Date(null))\n}\n\nlet page = parseInt(bh.input.query.page) || 1;\nlet limit = parseInt(bh.input.query.limit) || 5;\nlet skip = (page - 1) * limit;\n\nlet operations = bh.input.query?.operations ? JSON.parse(bh.input.query.operations) : [];\nlet startDate = bh.input.query?.startDate ? new Date(JSON.parse(bh.input.query.startDate)) : null;\nlet endDate = bh.input.query?.endDate ? new Date(JSON.parse(bh.input.query.endDate)) : null;\n\n\nbh.local.limit = limit\nbh.local.skip = skip\n\n\nlet matchConditions = {};\n\nif (operations && operations.length > 0) {\n  matchConditions['operation'] = { '$in': operations };\n}\n\nfunction isValidDate(date) {\n  return date instanceof Date && !isNaN(date);\n}\n\nif (isValidDate(startDate) && isValidDate(endDate)) {\n  matchConditions['timestamp'] = { '$gte': JSON.parse(bh.input.query.startDate), '$lte': JSON.parse(bh.input.query.endDate) };\n}\n\nlet pipeline = [];\n\n\nif (Object.keys(matchConditions).length > 0) {\n  pipeline.push({\n    $match: matchConditions\n  });\n}\n\npipeline.push({\n  $facet: {\n    totalDocuments: [\n      { $count: 'total' }\n    ],\n    paginatedResults: [\n      { $skip: skip },\n      { $limit: limit }\n    ]\n  }\n});\n\n\nbh.local.pipeline = pipeline;\nconsole.log('pipeline = = = =', pipeline)\n",
+        "functionName": "sd_7zS99wyPhOajPL6L",
+        "category": "Function",
+        "x": 245,
+        "y": 80,
+        "wires": [
+            [
+                "sd_A592j3hB2Qccet9s"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_audit_logs",
+        "generated": true
+    },
+    {
+        "id": "sd_JMlBrA79i80MonOG",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_4ifSbVh4Wqcz8AjP",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "console.log('total document count ,', bh.local.aggregationResult[0])\n\nbh.local.response = {\n    totalDocuments: bh.local.aggregationResult[0].totalDocuments[0]?.total,\n    auditLogsData: bh.local.aggregationResult[0].paginatedResults.map(doc => ({\n        ...doc,\n        timestamp: new Date(doc.timestamp).toLocaleString()\n    })),\n    limit: bh.local.limit\n}\n\nconsole.log('2. audit response after sanitization ===>', bh.local.response)",
+        "functionName": "sd_JMlBrA79i80MonOG",
+        "category": "Function",
+        "x": 505,
+        "y": 80,
+        "wires": [
+            [
+                "sd_PePuXM0Vu2ViboKe"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_audit_logs",
+        "generated": true
+    },
+    {
+        "id": "sd_A592j3hB2Qccet9s",
+        "type": "Mongodb",
+        "z": "SSD_SERVICE_ID_sd_4ifSbVh4Wqcz8AjP",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "databaseConfig": "sd_SsGwZHR2Z3WiKBs9",
+        "collection": "\"audits\"",
+        "options": "bh.web",
+        "resultMapping": "bh.local.aggregationResult",
+        "operation": "aggregate",
+        "argumentArray": [
+            "aggregate",
+            "options"
+        ],
+        "aggregate": "bh.local.pipeline",
+        "operations": "",
+        "query": "bh.local.query",
+        "fieldOrSpec": "",
+        "filter": "",
+        "key": "",
+        "docId": "",
+        "indexName": "",
+        "replacement": "",
+        "update": "",
+        "xAxis": "",
+        "yAxis": "",
+        "indexes": "",
+        "docs": "",
+        "document": "",
+        "newName": "",
+        "doc": "",
+        "filePath": "",
+        "fileName": "",
+        "pipeline": "",
+        "functionName": "sd_A592j3hB2Qccet9s",
+        "category": "Storage",
+        "x": 365,
+        "y": 80,
+        "wires": [
+            [
+                "sd_JMlBrA79i80MonOG"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "collection": {
+                "type": "str",
+                "value": "audits",
+                "constant": false
+            },
+            "options": {
+                "type": "bh",
+                "value": "web",
+                "constant": false
+            },
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "aggregationResult",
+                "constant": false
+            },
+            "query": {
+                "type": "bh.local",
+                "value": "query",
+                "constant": false
+            },
+            "aggregate": {
+                "type": "bh.local",
+                "value": "pipeline",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_audit_logs",
+        "generated": true
+    }
+]

@@ -1,0 +1,221 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_Gp3QvPJWSiLEOyxK",
+        "type": "tab",
+        "createdDate": "2025-09-09T05:12:46.899Z",
+        "label": "get_book_exists",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "get_book_exists",
+        "relativeParentPath": "book_crud"
+    },
+    {
+        "id": "sd_TabguAYyMtDKmCdT",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_Gp3QvPJWSiLEOyxK",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "",
+        "path": "/book/exists",
+        "uploadpath": "",
+        "summary": "",
+        "description": "",
+        "method": "get",
+        "sequenceId": "",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "useDataModel": false,
+        "dataModelIsArray": false,
+        "erd": "",
+        "erdName": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "responses": [],
+            "params": [],
+            "produces": [],
+            "consumes": []
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "validateRequestUsingSwaggerDocs": false,
+        "category": "HTTP",
+        "x": 280,
+        "y": 260,
+        "wires": [
+            [
+                "sd_ZKarB7H3Tcl3Y7KZ"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "get_book_exists",
+        "functionName": "sd_TabguAYyMtDKmCdT"
+    },
+    {
+        "id": "sd_jw3qK43RY090gUyu",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_Gp3QvPJWSiLEOyxK",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "response",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 200,
+            "obj": "bh.local.response",
+            "send": "bh.local.response"
+        },
+        "dataModelIsArray": false,
+        "cookies": [],
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_jw3qK43RY090gUyu",
+        "category": "HTTP",
+        "x": 705,
+        "y": 260,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_book_exists",
+        "generated": true
+    },
+    {
+        "id": "sd_ZKarB7H3Tcl3Y7KZ",
+        "type": "Mongodb",
+        "z": "SSD_SERVICE_ID_sd_Gp3QvPJWSiLEOyxK",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "databaseConfig": "sd_SsGwZHR2Z3WiKBs9",
+        "collection": "\"books\"",
+        "options": "bh.web",
+        "resultMapping": "bh.local.existingDocuments",
+        "operation": "find",
+        "argumentArray": [
+            "query",
+            "options"
+        ],
+        "aggregate": "",
+        "operations": "",
+        "query": "bh.input.query",
+        "fieldOrSpec": "",
+        "filter": "",
+        "key": "",
+        "docId": "",
+        "indexName": "",
+        "replacement": "",
+        "update": "",
+        "xAxis": "",
+        "yAxis": "",
+        "indexes": "",
+        "docs": "",
+        "document": "",
+        "newName": "",
+        "doc": "",
+        "filePath": "",
+        "fileName": "",
+        "pipeline": "bh",
+        "functionName": "sd_ZKarB7H3Tcl3Y7KZ",
+        "category": "Storage",
+        "x": 445,
+        "y": 260,
+        "wires": [
+            [
+                "sd_6FOSWIObkZ2bJX9A"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "collection": {
+                "type": "str",
+                "value": "books",
+                "constant": false
+            },
+            "options": {
+                "type": "bh",
+                "value": "web",
+                "constant": false
+            },
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "existingDocuments",
+                "constant": false
+            },
+            "query": {
+                "type": "bh.input",
+                "value": "query",
+                "constant": false
+            },
+            "pipeline": {
+                "type": "bh",
+                "value": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_book_exists",
+        "generated": true
+    },
+    {
+        "id": "sd_6FOSWIObkZ2bJX9A",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_Gp3QvPJWSiLEOyxK",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "console.log('book exists query',bh.input.query )\nconsole.log('book exists api res',bh.local.exists )\n\nif(bh.local.existingDocuments.length>0){\n    bh.local.response={\n        exists:true\n    }\n}else{\n    bh.local.response={\n        exists:false\n    }\n}",
+        "functionName": "sd_6FOSWIObkZ2bJX9A",
+        "category": "Function",
+        "x": 560,
+        "y": 260,
+        "wires": [
+            [
+                "sd_jw3qK43RY090gUyu"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_book_exists",
+        "generated": true
+    }
+]

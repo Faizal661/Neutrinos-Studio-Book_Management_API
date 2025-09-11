@@ -1,0 +1,38 @@
+{
+    "/dm/books/books/create": {
+        "post": {
+            "consumes": [],
+            "produces": [],
+            "parameters": [
+                {
+                    "in": "body",
+                    "name": "body",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "books": {
+                                "$ref": "#/definitions/books ~ books",
+                                "required": []
+                            }
+                        },
+                        "required": []
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/books ~ books"
+                        }
+                    },
+                    "description": ""
+                }
+            },
+            "tags": [
+                "books"
+            ]
+        }
+    }
+}

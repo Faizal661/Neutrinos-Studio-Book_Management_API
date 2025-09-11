@@ -1,0 +1,15 @@
+{
+    "/audits/report/pdf": {
+        "get": {
+            "summary": "",
+            "description": "",
+            "consumes": [],
+            "produces": [],
+            "parameters": [],
+            "responses": {},
+            "tags": [
+                "post_pdf_report"
+            ]
+        }
+    }
+}

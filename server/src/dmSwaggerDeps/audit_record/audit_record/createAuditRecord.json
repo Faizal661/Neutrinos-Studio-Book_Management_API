@@ -1,0 +1,38 @@
+{
+    "/dm/audit_record/audit_record/create": {
+        "post": {
+            "consumes": [],
+            "produces": [],
+            "parameters": [
+                {
+                    "in": "body",
+                    "name": "body",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "audit_record": {
+                                "$ref": "#/definitions/audit_record ~ audit_record",
+                                "required": []
+                            }
+                        },
+                        "required": []
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/audit_record ~ audit_record"
+                        }
+                    },
+                    "description": ""
+                }
+            },
+            "tags": [
+                "audit_record"
+            ]
+        }
+    }
+}

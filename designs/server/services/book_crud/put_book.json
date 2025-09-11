@@ -1,0 +1,465 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR",
+        "type": "tab",
+        "createdDate": "2025-09-08T10:34:38.857Z",
+        "label": "put_book",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "put_book",
+        "relativeParentPath": "book_crud"
+    },
+    {
+        "id": "sd_mHzlC823jEUf4oX3",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "",
+        "path": "/books/:isbn",
+        "uploadpath": "",
+        "summary": "",
+        "description": "",
+        "method": "put",
+        "sequenceId": "",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "useDataModel": false,
+        "dataModelIsArray": false,
+        "uploadFileOptions": "",
+        "erd": "",
+        "erdName": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "responses": [],
+            "params": [],
+            "produces": [],
+            "consumes": []
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "validateRequestUsingSwaggerDocs": false,
+        "category": "HTTP",
+        "x": 125,
+        "y": 220,
+        "wires": [
+            [
+                "sd_JHYYnvmT6yilDPhs"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "put_book",
+        "functionName": "sd_mHzlC823jEUf4oX3"
+    },
+    {
+        "id": "sd_1OOfc8IS4dWTZaM9",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "result",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 200,
+            "obj": "bh.local.result",
+            "send": "bh.local.result"
+        },
+        "dataModelIsArray": false,
+        "cookies": [],
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_1OOfc8IS4dWTZaM9",
+        "category": "HTTP",
+        "x": 650,
+        "y": 220,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "put_book",
+        "generated": true
+    },
+    {
+        "id": "sd_JHYYnvmT6yilDPhs",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "bh.local.filter = {\n  isbn:bh.input.params.isbn\n};\n\nbh.local.updatedData = {\n  $set: {\n    title: bh.input.body.title,\n    publishers:bh.input.body.publishers,\n    publishedYear: bh.input.body.publishedYear,\n  },\n};\n\n\nconsole.log('patch input data ===>  ',bh.input.body)\n",
+        "functionName": "sd_JHYYnvmT6yilDPhs",
+        "category": "Function",
+        "x": 250,
+        "y": 220,
+        "wires": [
+            [
+                "sd_4E8GCXvPrEtBNw9f"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "put_book",
+        "generated": true
+    },
+    {
+        "id": "sd_4E8GCXvPrEtBNw9f",
+        "type": "Mongodb",
+        "z": "SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "databaseConfig": "sd_SsGwZHR2Z3WiKBs9",
+        "collection": "\"books\"",
+        "options": "bh.web",
+        "resultMapping": "bh.local.result",
+        "operation": "findOneAndUpdate",
+        "argumentArray": [
+            "filter",
+            "update",
+            "options"
+        ],
+        "aggregate": "",
+        "operations": "",
+        "query": "bh.local",
+        "fieldOrSpec": "",
+        "filter": "bh.local.filter",
+        "key": "",
+        "docId": "",
+        "indexName": "",
+        "replacement": "",
+        "update": "bh.local.updatedData",
+        "xAxis": "",
+        "yAxis": "",
+        "indexes": "",
+        "docs": "",
+        "document": "",
+        "newName": "",
+        "doc": "",
+        "filePath": "",
+        "fileName": "",
+        "pipeline": "",
+        "functionName": "sd_4E8GCXvPrEtBNw9f",
+        "category": "Storage",
+        "x": 365,
+        "y": 220,
+        "wires": [
+            [
+                "sd_DbOcK5Jlaob0ZE3l"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "collection": {
+                "type": "str",
+                "value": "books",
+                "constant": false
+            },
+            "options": {
+                "type": "bh",
+                "value": "web",
+                "constant": false
+            },
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "result",
+                "constant": false
+            },
+            "query": {
+                "type": "bh.local",
+                "value": "",
+                "constant": false
+            },
+            "filter": {
+                "type": "bh.local",
+                "value": "filter",
+                "constant": false
+            },
+            "update": {
+                "type": "bh.local",
+                "value": "updatedData",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "put_book",
+        "generated": true
+    },
+    {
+        "id": "sd_DbOcK5Jlaob0ZE3l",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "bh.local.result={\n    ...bh.local.result,\n    status:200\n}\n\n",
+        "functionName": "sd_DbOcK5Jlaob0ZE3l",
+        "category": "Function",
+        "x": 485,
+        "y": 220,
+        "wires": [
+            [
+                "sd_1OOfc8IS4dWTZaM9",
+                "sd_0wqw7tyvEUFRZTcK"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "put_book",
+        "generated": true
+    },
+    {
+        "id": "sd_bYXjsgWbVnviKb4d",
+        "type": "Catch",
+        "z": "SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR",
+        "viewType": "common",
+        "nodeType": "start",
+        "name": "",
+        "selectedNodes": [
+            "sd_mHzlC823jEUf4oX3",
+            "sd_1OOfc8IS4dWTZaM9",
+            "sd_JHYYnvmT6yilDPhs",
+            "sd_4E8GCXvPrEtBNw9f",
+            "sd_DbOcK5Jlaob0ZE3l"
+        ],
+        "selectCatchType": "selectednodes",
+        "masternodeList": "",
+        "ignoreList": [
+            "sd_PGESEcQjIy1uzRR3"
+        ],
+        "functionName": "sd_bYXjsgWbVnviKb4d",
+        "category": "General",
+        "x": 485,
+        "y": 320,
+        "wires": [
+            [
+                "sd_PGESEcQjIy1uzRR3"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "put_book"
+    },
+    {
+        "id": "sd_PGESEcQjIy1uzRR3",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "str",
+            "value": "failed to update book details",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 500,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 500,
+            "obj": "\"failed to update book details\"",
+            "send": "\"failed to update book details\""
+        },
+        "dataModelIsArray": false,
+        "cookies": [],
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_PGESEcQjIy1uzRR3",
+        "category": "HTTP",
+        "x": 645,
+        "y": 320,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "put_book",
+        "generated": true
+    },
+    {
+        "id": "sd_el46xu95QqB9z0DP",
+        "type": "ServerHttpRequest",
+        "z": "SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "audit http req",
+        "method": "post",
+        "methodMapping": "",
+        "methodMappingObj": {},
+        "urlMapping": "bh.local.insertAuditURL",
+        "urlMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "insertAuditURL"
+        },
+        "ret": "json",
+        "retMapping": "",
+        "retMappingObj": {},
+        "reqBody": "bh.local.auditDocument",
+        "reqBodyObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "auditDocument"
+        },
+        "resultMapping": "bh.local.audit_save_response",
+        "resultMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "audit_save_response"
+        },
+        "headers": {},
+        "headersObj": [],
+        "headerMapping": "",
+        "headerMappingObj": {},
+        "params": {},
+        "paramsObj": [],
+        "paramMapping": "",
+        "paramMappingObj": {},
+        "authType": "",
+        "useAuthTypeMappingObj": {},
+        "useAuthTypeMap": {},
+        "useAuthType": "",
+        "useAuthUsername": "",
+        "useAuthUsernameMappingObj": "",
+        "useAuthPassword": "",
+        "useAuthPasswordMappingObj": "",
+        "useAuthToken": "",
+        "useAuthTokenMappingObj": "",
+        "useQueryString": false,
+        "tls": "",
+        "followRedirect": true,
+        "paytoqs": false,
+        "useAuthentication": false,
+        "rejectUnauthorized": false,
+        "proxy": "",
+        "useProxy": false,
+        "usetls": false,
+        "cookies": [],
+        "cookiesMapObj": {},
+        "cookiesList": {},
+        "switchStates": {
+            "cookies": "Map"
+        },
+        "editableListData": {},
+        "timeout": {
+            "type": "num",
+            "value": ""
+        },
+        "functionName": "auditHttpReq",
+        "category": "HTTP",
+        "x": 745,
+        "y": 80,
+        "wires": [
+            [
+                "sd_Ui9yPkYu5yLOe3vr"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "put_book",
+        "generated": true
+    },
+    {
+        "id": "sd_0wqw7tyvEUFRZTcK",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "audit-logs",
+        "script": "bh.local.insertAuditURL = `http://localhost:8081/api/audits`;\n\nbh.local.auditDocument=  {\n    timestamp: new Date(),\n    operation: \"UPDATE_BOOK\",\n    resourceId: bh.input.params.isbn,\n    userId: \"Demo_id_12345678\"\n  }",
+        "functionName": "auditLogs",
+        "category": "Function",
+        "x": 645,
+        "y": 80,
+        "wires": [
+            [
+                "sd_el46xu95QqB9z0DP"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "put_book",
+        "generated": true
+    },
+    {
+        "id": "sd_Ui9yPkYu5yLOe3vr",
+        "type": "ServerLog",
+        "z": "SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "audit log",
+        "outputs": 0,
+        "logObject": "bh.local.audit_save_response",
+        "logLevel": "info",
+        "functionName": "auditLog",
+        "category": "General",
+        "x": 845,
+        "y": 80,
+        "wires": [],
+        "__ssdTypeInputs__": {
+            "logObject": {
+                "type": "bh.local",
+                "value": "audit_save_response",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "put_book",
+        "generated": true
+    }
+]

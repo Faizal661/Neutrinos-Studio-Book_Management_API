@@ -1,0 +1,476 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_BXKo8IBXZLOy1iYm",
+        "type": "tab",
+        "createdDate": "2025-09-08T09:56:27.892Z",
+        "label": "get_book_by_isbn",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "get_book_by_isbn",
+        "relativeParentPath": "book_crud"
+    },
+    {
+        "id": "sd_aSYjxBKjqgKlWYc4",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_BXKo8IBXZLOy1iYm",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "",
+        "path": "/books/:isbn",
+        "uploadpath": "",
+        "summary": "",
+        "description": "",
+        "method": "get",
+        "sequenceId": "",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "useDataModel": false,
+        "dataModelIsArray": false,
+        "uploadFileOptions": "",
+        "erd": "",
+        "erdName": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "responses": [],
+            "params": [],
+            "produces": [],
+            "consumes": [
+                {
+                    "key": "application/json",
+                    "rowId": "sd_OjnJSs0XxG59USZO",
+                    "valid": true
+                }
+            ]
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "validateRequestUsingSwaggerDocs": false,
+        "category": "HTTP",
+        "x": 145,
+        "y": 200,
+        "wires": [
+            [
+                "sd_nFbAaKqoiXmJXXuA"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "get_book_by_isbn",
+        "functionName": "sd_aSYjxBKjqgKlWYc4"
+    },
+    {
+        "id": "sd_nFbAaKqoiXmJXXuA",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_BXKo8IBXZLOy1iYm",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "validate_isbn",
+        "script": "console.log(\"1.req params ====>\")\nconsole.log(bh.input.params)\n\nbh.local.openLibraryUrl =`https://openlibrary.org/isbn/${bh.input.params.isbn}`;\n\n",
+        "functionName": "validateIsbn",
+        "category": "Function",
+        "x": 265,
+        "y": 200,
+        "wires": [
+            [
+                "sd_iuyvkNwCqeEyZj3e"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_book_by_isbn",
+        "generated": true
+    },
+    {
+        "id": "sd_iuyvkNwCqeEyZj3e",
+        "type": "ServerHttpRequest",
+        "z": "SSD_SERVICE_ID_sd_BXKo8IBXZLOy1iYm",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "OpenLibraryFetchUsingISBN",
+        "method": "get",
+        "methodMappingObj": {},
+        "urlMapping": "bh.local.openLibraryUrl",
+        "urlMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "openLibraryUrl"
+        },
+        "ret": "json",
+        "retMappingObj": {},
+        "reqBodyObj": {
+            "mapVarType": "bh",
+            "mapVarValue": ""
+        },
+        "resultMapping": "bh.local.openApiLibraryData",
+        "resultMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "openApiLibraryData"
+        },
+        "headers": {},
+        "headersObj": [],
+        "headerMappingObj": {},
+        "params": {},
+        "paramsObj": [],
+        "paramMappingObj": {},
+        "useAuthTypeMappingObj": {},
+        "useAuthUsername": "",
+        "useAuthUsernameMappingObj": "",
+        "useAuthPassword": "",
+        "useAuthPasswordMappingObj": "",
+        "useAuthToken": "",
+        "useAuthTokenMappingObj": "",
+        "useQueryString": false,
+        "tls": "",
+        "followRedirect": true,
+        "paytoqs": false,
+        "useAuthentication": false,
+        "rejectUnauthorized": false,
+        "proxy": "",
+        "useProxy": false,
+        "usetls": false,
+        "cookiesMapObj": {},
+        "cookiesList": {},
+        "switchStates": {
+            "cookies": "Map"
+        },
+        "editableListData": {},
+        "timeout": {
+            "type": "num",
+            "value": "10000"
+        },
+        "functionName": "openLibraryFetchUsingIsbn",
+        "category": "HTTP",
+        "x": 405,
+        "y": 200,
+        "wires": [
+            [
+                "sd_4q6aRayMUo3zSwOq"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_book_by_isbn",
+        "generated": true
+    },
+    {
+        "id": "sd_uSrWOa5zO4F2blH4",
+        "type": "Catch",
+        "z": "SSD_SERVICE_ID_sd_BXKo8IBXZLOy1iYm",
+        "viewType": "common",
+        "nodeType": "start",
+        "name": "",
+        "selectedNodes": "all-nodes",
+        "selectCatchType": "allnodes",
+        "masternodeList": "",
+        "ignoreList": [
+            "sd_OgENpNPx7Rbg1lAe",
+            "sd_NpJyeu1vbImRFTCL"
+        ],
+        "functionName": "sd_uSrWOa5zO4F2blH4",
+        "category": "General",
+        "x": 445,
+        "y": 340,
+        "wires": [
+            [
+                "sd_OgENpNPx7Rbg1lAe"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "get_book_by_isbn"
+    },
+    {
+        "id": "sd_NpJyeu1vbImRFTCL",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_BXKo8IBXZLOy1iYm",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "message",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 500,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 500,
+            "obj": "bh.local.message",
+            "send": "bh.local.message"
+        },
+        "dataModelIsArray": false,
+        "cookies": [],
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_NpJyeu1vbImRFTCL",
+        "category": "HTTP",
+        "x": 665,
+        "y": 340,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_book_by_isbn",
+        "generated": true
+    },
+    {
+        "id": "sd_OgENpNPx7Rbg1lAe",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_BXKo8IBXZLOy1iYm",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "console.log('error ===> ',bh.error.message)\n\nbh.local.message=bh.error.message || \"Failed to fetch Book Details\"\n\nbh.local.response={\n    message:bh.local.message,\n    status:500\n}",
+        "functionName": "sd_OgENpNPx7Rbg1lAe",
+        "category": "Function",
+        "x": 545,
+        "y": 340,
+        "wires": [
+            [
+                "sd_NpJyeu1vbImRFTCL"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_book_by_isbn",
+        "generated": true
+    },
+    {
+        "id": "sd_Ok70Pa7mTnHqYrGr",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_BXKo8IBXZLOy1iYm",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "response",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 200,
+            "obj": "bh.local.response",
+            "send": "bh.local.response"
+        },
+        "dataModelIsArray": false,
+        "cookies": [],
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_Ok70Pa7mTnHqYrGr",
+        "category": "HTTP",
+        "x": 665,
+        "y": 200,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_book_by_isbn",
+        "generated": true
+    },
+    {
+        "id": "sd_4q6aRayMUo3zSwOq",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_BXKo8IBXZLOy1iYm",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "bh.local.response={\n    openApiLibraryData:bh.local.openApiLibraryData,\n    status:200\n}",
+        "functionName": "sd_4q6aRayMUo3zSwOq",
+        "category": "Function",
+        "x": 545,
+        "y": 200,
+        "wires": [
+            [
+                "sd_Ok70Pa7mTnHqYrGr",
+                "sd_VulpIMmfgcHUdZam"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_book_by_isbn",
+        "generated": true
+    },
+    {
+        "id": "sd_jYjSNgr2GgByhGW4",
+        "type": "ServerHttpRequest",
+        "z": "SSD_SERVICE_ID_sd_BXKo8IBXZLOy1iYm",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "audit http req",
+        "method": "post",
+        "methodMapping": "",
+        "methodMappingObj": {},
+        "urlMapping": "bh.local.insertAuditURL",
+        "urlMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "insertAuditURL"
+        },
+        "ret": "json",
+        "retMapping": "",
+        "retMappingObj": {},
+        "reqBody": "bh.local.auditDocument",
+        "reqBodyObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "auditDocument"
+        },
+        "resultMapping": "bh.local.audit_save_response",
+        "resultMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "audit_save_response"
+        },
+        "headers": {},
+        "headersObj": [],
+        "headerMapping": "",
+        "headerMappingObj": {},
+        "params": {},
+        "paramsObj": [],
+        "paramMapping": "",
+        "paramMappingObj": {},
+        "authType": "",
+        "useAuthTypeMappingObj": {},
+        "useAuthTypeMap": {},
+        "useAuthType": "",
+        "useAuthUsername": "",
+        "useAuthUsernameMappingObj": "",
+        "useAuthPassword": "",
+        "useAuthPasswordMappingObj": "",
+        "useAuthToken": "",
+        "useAuthTokenMappingObj": "",
+        "useQueryString": false,
+        "tls": "",
+        "followRedirect": true,
+        "paytoqs": false,
+        "useAuthentication": false,
+        "rejectUnauthorized": false,
+        "proxy": "",
+        "useProxy": false,
+        "usetls": false,
+        "cookies": [],
+        "cookiesMapObj": {},
+        "cookiesList": {},
+        "switchStates": {
+            "cookies": "Map"
+        },
+        "editableListData": {},
+        "timeout": {
+            "type": "num",
+            "value": ""
+        },
+        "functionName": "auditHttpReq",
+        "category": "HTTP",
+        "x": 725,
+        "y": 80,
+        "wires": [
+            [
+                "sd_OEMAzSL1cTtsRgzA"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_book_by_isbn",
+        "generated": true
+    },
+    {
+        "id": "sd_VulpIMmfgcHUdZam",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_BXKo8IBXZLOy1iYm",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "audit-logs",
+        "script": "bh.local.insertAuditURL = `http://localhost:8081/api/audits`;\n\nbh.local.auditDocument=  {\n    timestamp: new Date(),\n    operation: \"READ_BOOK\",\n    resourceId: bh.input.params.isbn,\n    userId: \"Demo_id_12345678\"\n  }",
+        "functionName": "auditLogs",
+        "category": "Function",
+        "x": 625,
+        "y": 80,
+        "wires": [
+            [
+                "sd_jYjSNgr2GgByhGW4"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_book_by_isbn",
+        "generated": true
+    },
+    {
+        "id": "sd_OEMAzSL1cTtsRgzA",
+        "type": "ServerLog",
+        "z": "SSD_SERVICE_ID_sd_BXKo8IBXZLOy1iYm",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "audit log",
+        "outputs": 0,
+        "logObject": "bh.local.audit_save_response",
+        "logLevel": "info",
+        "functionName": "auditLog",
+        "category": "General",
+        "x": 825,
+        "y": 80,
+        "wires": [],
+        "__ssdTypeInputs__": {
+            "logObject": {
+                "type": "bh.local",
+                "value": "audit_save_response",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_book_by_isbn",
+        "generated": true
+    }
+]
