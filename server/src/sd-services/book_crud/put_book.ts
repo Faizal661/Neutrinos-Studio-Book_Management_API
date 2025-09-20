@@ -256,7 +256,7 @@ export class put_book {
         method: 'post',
         headers: {},
         followRedirects: true,
-        cookies: {},
+        cookies: undefined,
         authType: undefined,
         body: bh.local.auditDocument,
         paytoqs: false,

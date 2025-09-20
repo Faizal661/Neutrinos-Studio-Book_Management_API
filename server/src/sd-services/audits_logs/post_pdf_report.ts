@@ -192,7 +192,7 @@ export class post_pdf_report {
         bh.web
       );
       this.tracerService.sendData(spanInst, bh);
-      bh = await this.sd_3X7I1V7ziT9PZ7dj(bh, parentSpanInst);
+      bh = await this.sd_QkDEbXzbSHIJSFYk(bh, parentSpanInst);
       //appendnew_next_sd_6MiQeYcc0ZsvjZIx
       return bh;
     } catch (e) {
@@ -206,9 +206,9 @@ export class post_pdf_report {
     }
   }
 
-  async sd_3X7I1V7ziT9PZ7dj(bh, parentSpanInst) {
+  async sd_QkDEbXzbSHIJSFYk(bh, parentSpanInst) {
     const spanInst = this.tracerService.createSpan(
-      'sd_3X7I1V7ziT9PZ7dj',
+      'sd_QkDEbXzbSHIJSFYk',
       parentSpanInst
     );
     try {
@@ -218,6 +218,13 @@ export class post_pdf_report {
 
       (async function () {
         await generateAuditPDF(bh.local.resultData, 'audit-report.pdf');
+
+        bh.web.res.setHeader('Content-Type', 'application/pdf');
+        bh.web.res.setHeader(
+          'Content-Disposition',
+          'attachment; filename="audit-report.pdf"'
+        );
+        bh.web.res.sendFile('audit-report.pdf', { root: '.' });
       })();
 
       async function generateAuditPDF(filteredAudits, pdfPath) {
@@ -265,9 +272,9 @@ export class post_pdf_report {
         <tbody>
           ${audits
             .map(
-              (audit) => `
+              (audit, index) => `
             <tr>
-              <td>${audit.id}</td>
+              <td>${index + 1}</td>
               <td>${audit.timestamp}</td>
               <td>${audit.operation}</td>
               <td>${audit.resourceId !== null ? audit.resourceId : 'N/A'}</td>
@@ -283,32 +290,26 @@ export class post_pdf_report {
   `;
       }
       this.tracerService.sendData(spanInst, bh);
-      await this.sd_L7TfufX3NTSAyO8t(bh, parentSpanInst);
-      //appendnew_next_sd_3X7I1V7ziT9PZ7dj
+      //appendnew_next_sd_QkDEbXzbSHIJSFYk
       return bh;
     } catch (e) {
       return await this.errorHandler(
         bh,
         e,
-        'sd_3X7I1V7ziT9PZ7dj',
+        'sd_QkDEbXzbSHIJSFYk',
         spanInst,
-        'sd_3X7I1V7ziT9PZ7dj'
+        'sd_QkDEbXzbSHIJSFYk'
       );
     }
   }
 
-  async sd_L7TfufX3NTSAyO8t(bh, parentSpanInst) {
+  async sd_VoNMKw7spVnGneki(bh, parentSpanInst) {
     try {
-      bh.web.res.set({
-        'Content-Type': 'application/pdf',
-        'Content-Disposition': 'attachment; filename="audit-report.pdf"',
-      });
-
-      bh.web.res.status(200).download('audit-report.pdf');
+      bh.web.res.status(500).send('Failed to generate pdf report.');
 
       return bh;
     } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_L7TfufX3NTSAyO8t');
+      return await this.errorHandler(bh, e, 'sd_VoNMKw7spVnGneki');
     }
   }
 
@@ -327,11 +328,28 @@ export class post_pdf_report {
     bh.errorSource = src;
     bh.errorFunName = functionName;
     this.tracerService.sendData(parentSpanInst, bh, true);
-    if (bh.web.next) {
-      bh.web.next(e);
+    if (
+      false ||
+      (await this.sd_gwBtp0TuE7cbJQiB(bh, parentSpanInst))
+      /*appendnew_next_Catch*/
+    ) {
+      return bh;
     } else {
-      throw e;
+      if (bh.web.next) {
+        bh.web.next(e);
+      } else {
+        throw e;
+      }
     }
+  }
+  async sd_gwBtp0TuE7cbJQiB(bh, parentSpanInst) {
+    const catchConnectedNodes = ['sd_VoNMKw7spVnGneki'];
+    if (catchConnectedNodes.includes(bh.errorSource)) {
+      return false;
+    }
+    await this.sd_VoNMKw7spVnGneki(bh, parentSpanInst);
+    //appendnew_next_sd_gwBtp0TuE7cbJQiB
+    return true;
   }
   //appendnew_flow_post_pdf_report_Catch
 }

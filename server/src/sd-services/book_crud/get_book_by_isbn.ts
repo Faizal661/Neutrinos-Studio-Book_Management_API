@@ -346,7 +346,10 @@ export class get_book_by_isbn {
     try {
       console.log('error ===> ', bh.error.message);
 
-      bh.local.message = bh.error.message || 'Failed to fetch Book Details';
+      bh.local.message = 'Failed to fetch Book Details';
+      if (bh.error.message.includes('404')) {
+        bh.local.message = 'isbn is not exists in OpenAPI Library';
+      }
 
       bh.local.response = {
         message: bh.local.message,

@@ -11,10 +11,31 @@
     "middlewares": {
         "pre": [
             {
-                "__ssdGlobalMiddlewares__": "sd_Tp9jNbUvUZ1kJnAn"
+                "ids": "hrefstart"
+            },
+            {
+                "__ssdGlobalMiddlewares__": "sd_7EmxxOk703exD5hF"
+            },
+            {
+                "__ssdGlobalMiddlewares__": "cors"
             }
         ],
         "post": [],
-        "sequences": {}
+        "sequences": {
+            "IDSAuthroizedAPIs": {
+                "pre": [
+                    {
+                        "ids": "Authorize"
+                    }
+                ],
+                "post": []
+            }
+        }
+    },
+    "ids": {
+        "client_id": "Ljnt6R6U2G9YelR2phLQx",
+        "client_secret": "3GNjmkoNl1lWS06FVgS4MqFmCN5leGaKeDYX_d-O-g_lyzVyDRSkicDxCQVejqftepSyBqBQ6h2V4jUwcvCD2g",
+        "issuerURL": "https://ids.neutrinos.co",
+        "enabled": true
     }
 }

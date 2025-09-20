@@ -30,7 +30,6 @@
         "acceptFileUpload": false,
         "useDataModel": false,
         "dataModelIsArray": false,
-        "uploadFileOptions": "",
         "erd": "",
         "erdName": "",
         "entity": "",
@@ -99,6 +98,7 @@
             "send": "bh.local.result"
         },
         "dataModelIsArray": false,
+        "cookies": [],
         "inputs": 1,
         "outputs": 0,
         "erd": "",
@@ -481,7 +481,6 @@
         "nodeType": "flow",
         "name": "Existing Book Check",
         "method": "get",
-        "methodMapping": "",
         "methodMappingObj": {},
         "urlMapping": "bh.local.bookExistsURL",
         "urlMappingObj": {
@@ -489,9 +488,7 @@
             "mapVarValue": "bookExistsURL"
         },
         "ret": "json",
-        "retMapping": "",
         "retMappingObj": {},
-        "reqBody": "",
         "reqBodyObj": {
             "mapVarType": "bh",
             "mapVarValue": ""
@@ -503,19 +500,13 @@
         },
         "headers": {},
         "headersObj": [],
-        "headerMapping": "",
         "headerMappingObj": {},
-        "params": [],
-        "paramsObj": {},
         "paramMapping": "bh.local.query",
         "paramMappingObj": {
             "mapVarType": "bh.local",
             "mapVarValue": "query"
         },
-        "authType": "",
         "useAuthTypeMappingObj": {},
-        "useAuthTypeMap": {},
-        "useAuthType": "",
         "useAuthUsername": "",
         "useAuthUsernameMappingObj": "",
         "useAuthPassword": "",
@@ -531,7 +522,6 @@
         "proxy": "",
         "useProxy": false,
         "usetls": false,
-        "cookies": [],
         "cookiesMapObj": {},
         "cookiesList": {},
         "switchStates": {
@@ -564,6 +554,7 @@
         "nodeType": "flow",
         "name": "audit http req",
         "method": "post",
+        "methodMapping": "",
         "methodMappingObj": {},
         "urlMapping": "bh.local.insertAuditURL",
         "urlMappingObj": {
@@ -571,6 +562,7 @@
             "mapVarValue": "insertAuditURL"
         },
         "ret": "json",
+        "retMapping": "",
         "retMappingObj": {},
         "reqBody": "bh.local.auditDocument",
         "reqBodyObj": {
@@ -584,11 +576,16 @@
         },
         "headers": {},
         "headersObj": [],
+        "headerMapping": "",
         "headerMappingObj": {},
         "params": {},
         "paramsObj": [],
+        "paramMapping": "",
         "paramMappingObj": {},
+        "authType": "",
         "useAuthTypeMappingObj": {},
+        "useAuthTypeMap": {},
+        "useAuthType": "",
         "useAuthUsername": "",
         "useAuthUsernameMappingObj": "",
         "useAuthPassword": "",
@@ -604,6 +601,7 @@
         "proxy": "",
         "useProxy": false,
         "usetls": false,
+        "cookies": [],
         "cookiesMapObj": {},
         "cookiesList": {},
         "switchStates": {

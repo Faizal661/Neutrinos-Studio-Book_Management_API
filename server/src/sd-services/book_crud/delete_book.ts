@@ -269,7 +269,7 @@ export class delete_book {
         method: 'post',
         headers: {},
         followRedirects: true,
-        cookies: undefined,
+        cookies: {},
         authType: undefined,
         body: bh.local.auditDocument,
         paytoqs: false,

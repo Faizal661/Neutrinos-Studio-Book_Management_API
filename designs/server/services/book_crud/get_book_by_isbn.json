@@ -253,7 +253,7 @@
         "viewType": "common",
         "nodeType": "flow",
         "name": "",
-        "script": "console.log('error ===> ',bh.error.message)\n\nbh.local.message=bh.error.message || \"Failed to fetch Book Details\"\n\nbh.local.response={\n    message:bh.local.message,\n    status:500\n}",
+        "script": "console.log('error ===> ', bh.error.message)\n\nbh.local.message = \"Failed to fetch Book Details\"\nif (bh.error.message.includes('404')) {\n    bh.local.message = \"isbn is not exists in OpenAPI Library\"\n}\n\n\nbh.local.response = {\n    message: bh.local.message,\n    status: 500\n}",
         "functionName": "sd_OgENpNPx7Rbg1lAe",
         "category": "Function",
         "x": 545,

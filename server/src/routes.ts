@@ -1,4 +1,8 @@
 //CORE_REFERENCE_IMPORTS
+//CORE_REFERENCE_IMPORT-idsutil-sd_VPy7Q5B9YcqF6lBI
+import { idsutil as sd_VPy7Q5B9YcqF6lBI } from './sd-services/idsutil';
+//CORE_REFERENCE_IMPORT-ids-sd_lbUD9aCyDfXC0GlY
+import { ids as sd_lbUD9aCyDfXC0GlY } from './sd-services/ids';
 //CORE_REFERENCE_IMPORT-put_book-SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR
 import { put_book as SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR } from './sd-services/book_crud/put_book';
 //CORE_REFERENCE_IMPORT-post_audit_logs-SSD_SERVICE_ID_sd_ucvFL7JloazU7qcI
@@ -20,6 +24,10 @@ import { delete_book as SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS } from './sd-services
 
 export const UserRoutes = [
 //CORE_REFERENCE_PUSH_TO_ROUTE_ARRAY
+//CORE_REFERENCE_PUSH_TO_ROUTE_ARRAY-idsutil-sd_VPy7Q5B9YcqF6lBI
+sd_VPy7Q5B9YcqF6lBI,
+//CORE_REFERENCE_PUSH_TO_ROUTE_ARRAY-ids-sd_lbUD9aCyDfXC0GlY
+sd_lbUD9aCyDfXC0GlY,
 //CORE_REFERENCE_PUSH_TO_ROUTE_ARRAY-put_book-SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR
 SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR,
 //CORE_REFERENCE_PUSH_TO_ROUTE_ARRAY-post_audit_logs-SSD_SERVICE_ID_sd_ucvFL7JloazU7qcI
