@@ -219,7 +219,10 @@ export class post_book {
       console.log('1.req params ====>');
       console.log(bh.input.body);
 
-      bh.local.openLibraryUrl = `https://openlibrary.org/isbn/${bh.input.body.isbn}`;
+      // old api
+      // bh.local.openLibraryUrl = `https://openlibrary.org/isbn/${bh.input.body.isbn}`;
+      // new api
+      bh.local.openLibraryUrl = `https://openlibrary.org/api/books?bibkeys=ISBN:${bh.input.body.isbn}&jscmd=data&format=json`;
 
       this.tracerService.sendData(spanInst, bh);
       bh = await this.openLibraryBookFetch(bh, parentSpanInst);
@@ -244,7 +247,7 @@ export class post_book {
         method: 'get',
         headers: {},
         followRedirects: true,
-        cookies: {},
+        cookies: undefined,
         authType: undefined,
         body: undefined,
         paytoqs: false,
@@ -295,15 +298,20 @@ export class post_book {
       parentSpanInst
     );
     try {
-      console.log('2. open api library data ====>');
-      // console.log(bh.local.openApiLibraryData)
+      console.log(
+        '2. open api library data ====>',
+        bh.local.openApiLibraryData
+      );
+
+      const isbnKey = Object.keys(bh.local.openApiLibraryData.payload)[0];
+      const bookDetails = bh.local.openApiLibraryData.payload[isbnKey];
 
       bh.local.bookData = {
-        id: bh.local.openApiLibraryData.payload.isbn_10[0],
-        isbn: bh.local.openApiLibraryData.payload.isbn_13[0],
-        title: bh.local.openApiLibraryData.payload.title,
-        publishers: bh.local.openApiLibraryData.payload.publishers[0],
-        publishedYear: bh.local.openApiLibraryData.payload.publish_date,
+        id: bookDetails.identifiers.isbn_10,
+        isbn: bh.input.body.isbn,
+        title: bookDetails.title,
+        publishers: bookDetails.authors[0].name,
+        publishedYear: bookDetails.publish_date,
       };
 
       console.log('3. after sanitizing data ===>');

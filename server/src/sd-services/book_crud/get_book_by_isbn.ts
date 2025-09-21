@@ -130,7 +130,11 @@ export class get_book_by_isbn {
       console.log('1.req params ====>');
       console.log(bh.input.params);
 
-      bh.local.openLibraryUrl = `https://openlibrary.org/isbn/${bh.input.params.isbn}`;
+      // old api
+      // bh.local.openLibraryUrl =`https://openlibrary.org/isbn/${bh.input.params.isbn}`;
+
+      // new api
+      bh.local.openLibraryUrl = `https://openlibrary.org/api/books?bibkeys=ISBN:${bh.input.params.isbn}&jscmd=data&format=json`;
 
       this.tracerService.sendData(spanInst, bh);
       bh = await this.openLibraryFetchUsingIsbn(bh, parentSpanInst);
@@ -206,10 +210,15 @@ export class get_book_by_isbn {
       parentSpanInst
     );
     try {
+      const isbnKey = Object.keys(bh.local.openApiLibraryData.payload)[0];
+      const bookDetails = bh.local.openApiLibraryData.payload[isbnKey];
+
       bh.local.response = {
-        openApiLibraryData: bh.local.openApiLibraryData,
+        openApiLibraryData: bookDetails,
         status: 200,
       };
+
+      console.log('response', bh.local.response);
       this.tracerService.sendData(spanInst, bh);
       await this.sd_Ok70Pa7mTnHqYrGr(bh, parentSpanInst);
       bh = await this.auditLogs(bh, parentSpanInst);
