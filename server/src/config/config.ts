@@ -8,7 +8,7 @@ export default {
   middlewares: {
     pre: [
       { ids: 'hrefstart' },
-      { __ssdGlobalMiddlewares__: 'sd_7EmxxOk703exD5hF' },
+      { __ssdGlobalMiddlewares__: 'sd_2X3lHjqYU2gBQCRT' },
       { __ssdGlobalMiddlewares__: 'cors' },
     ],
     post: [],

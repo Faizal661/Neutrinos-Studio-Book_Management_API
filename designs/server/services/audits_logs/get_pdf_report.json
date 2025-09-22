@@ -3,12 +3,12 @@
         "id": "SSD_SERVICE_ID_sd_Cai4hEDise9lBbSA",
         "type": "tab",
         "createdDate": "2025-09-09T07:39:10.958Z",
-        "label": "post_pdf_report",
+        "label": "get_pdf_report",
         "disabled": false,
         "info": "",
         "functionSeq": 0,
         "generateNext": true,
-        "serviceName": "post_pdf_report",
+        "serviceName": "get_pdf_report",
         "relativeParentPath": "audits_logs"
     },
     {
@@ -17,13 +17,13 @@
         "z": "SSD_SERVICE_ID_sd_Cai4hEDise9lBbSA",
         "viewType": "server",
         "nodeType": "start",
-        "name": "",
+        "name": "get_pdf_report",
         "path": "/audits/report/pdf",
         "uploadpath": "",
         "summary": "",
         "description": "",
         "method": "get",
-        "sequenceId": "",
+        "sequenceId": "IDSAuthroizedAPIs",
         "consumes": "",
         "produces": "",
         "filetype": "path",
@@ -45,11 +45,11 @@
         "outputs": 1,
         "validateRequestUsingSwaggerDocs": false,
         "category": "HTTP",
-        "x": 165,
+        "x": 105,
         "y": 180,
         "wires": [
             [
-                "sd_kaY02o3IP1brFCw0"
+                "sd_596lQy08yPyPso25"
             ]
         ],
         "__ssdTypeInputs__": {
@@ -63,7 +63,7 @@
         },
         "__n_excludedFromValidation__": {},
         "generateNext": true,
-        "serviceName": "post_pdf_report",
+        "serviceName": "get_pdf_report",
         "functionName": "sd_Uhfjw7ksyDPV8QOZ"
     },
     {
@@ -102,6 +102,7 @@
             }
         },
         "dataModelIsArray": false,
+        "cookies": [],
         "inputs": 1,
         "outputs": 0,
         "erd": "",
@@ -133,12 +134,12 @@
         },
         "functionName": "sd_L7TfufX3NTSAyO8t",
         "category": "HTTP",
-        "x": 685,
+        "x": 605,
         "y": 180,
         "wires": [],
         "__n_excludedFromValidation__": {},
         "generateNext": true,
-        "serviceName": "post_pdf_report"
+        "serviceName": "get_pdf_report"
     },
     {
         "id": "sd_kaY02o3IP1brFCw0",
@@ -147,10 +148,10 @@
         "viewType": "common",
         "nodeType": "flow",
         "name": "",
-        "script": "console.log(\"query  === \", bh.input.query);\n\nif(bh.input.query?.startDate==='null'){\n  bh.input.query.startDate=JSON.stringify(new Date(null))\n}\n\nlet operations = bh.input.query?.operations ? JSON.parse(bh.input.query.operations) : [];\nlet startDate = bh.input.query?.startDate ? new Date(JSON.parse(bh.input.query.startDate)) : null;\nlet endDate = bh.input.query?.endDate ? new Date(JSON.parse(bh.input.query.endDate)) : null;\n\n\nconst filter = {};\n\nif (operations && operations.length > 0) {\n  filter['operation'] = { '$in': operations };\n}\n\nif (isValidDate(startDate) && isValidDate(endDate)) {\n  filter['timestamp'] = { '$gte': JSON.parse(bh.input.query.startDate), '$lte': JSON.parse(bh.input.query.endDate) };\n}\n\n\nfunction isValidDate(date) {\n  return date instanceof Date && !isNaN(date);\n}\n\n\nbh.local.filter = filter;\n\nconsole.log('filter = = = =', bh.local.filter )\n",
+        "script": "console.log(\"bh.local.userInfo ====>\",bh.local.userInfo)\nbh.local.username=bh.local.userInfo?.data?.userInfo?.username\nconsole.log(\"username ====>\",bh.local.username)\n\nconsole.log(\"query  === \", bh.input.query);\n\nif(bh.input.query?.startDate==='null'){\n  bh.input.query.startDate=JSON.stringify(new Date(null))\n}\n\nlet operations = bh.input.query?.operations ? JSON.parse(bh.input.query.operations) : [];\nlet startDate = bh.input.query?.startDate ? new Date(JSON.parse(bh.input.query.startDate)) : null;\nlet endDate = bh.input.query?.endDate ? new Date(JSON.parse(bh.input.query.endDate)) : null;\n\n\nconst filter = {};\n\nif (operations && operations.length > 0) {\n  filter['operation'] = { '$in': operations };\n}\n\nif (isValidDate(startDate) && isValidDate(endDate)) {\n  filter['timestamp'] = { '$gte': JSON.parse(bh.input.query.startDate), '$lte': JSON.parse(bh.input.query.endDate) };\n}\n\n\nfunction isValidDate(date) {\n  return date instanceof Date && !isNaN(date);\n}\n\n\nbh.local.filter = filter;\n\nconsole.log('filter = = = =', bh.local.filter )\n",
         "functionName": "sd_kaY02o3IP1brFCw0",
         "category": "Function",
-        "x": 265,
+        "x": 305,
         "y": 180,
         "wires": [
             [
@@ -159,7 +160,7 @@
         ],
         "__n_excludedFromValidation__": {},
         "generateNext": false,
-        "serviceName": "post_pdf_report",
+        "serviceName": "get_pdf_report",
         "generated": true
     },
     {
@@ -200,11 +201,12 @@
         "pipeline": "",
         "functionName": "sd_6MiQeYcc0ZsvjZIx",
         "category": "Storage",
-        "x": 385,
+        "x": 405,
         "y": 180,
         "wires": [
             [
-                "sd_QkDEbXzbSHIJSFYk"
+                "sd_QkDEbXzbSHIJSFYk",
+                "sd_r7CHKXCDB6QDiUNY"
             ]
         ],
         "__ssdTypeInputs__": {
@@ -236,7 +238,7 @@
         },
         "__n_excludedFromValidation__": {},
         "generateNext": false,
-        "serviceName": "post_pdf_report",
+        "serviceName": "get_pdf_report",
         "generated": true
     },
     {
@@ -245,14 +247,14 @@
         "z": "SSD_SERVICE_ID_sd_Cai4hEDise9lBbSA",
         "viewType": "common",
         "nodeType": "start",
-        "name": "",
+        "name": "catch_node",
         "selectedNodes": "all-nodes",
         "selectCatchType": "allnodes",
         "masternodeList": "",
         "ignoreList": [
             "sd_VoNMKw7spVnGneki"
         ],
-        "functionName": "sd_gwBtp0TuE7cbJQiB",
+        "functionName": "catchNode",
         "category": "General",
         "x": 545,
         "y": 300,
@@ -263,7 +265,7 @@
         ],
         "__n_excludedFromValidation__": {},
         "generateNext": true,
-        "serviceName": "post_pdf_report"
+        "serviceName": "get_pdf_report"
     },
     {
         "id": "sd_VoNMKw7spVnGneki",
@@ -291,6 +293,7 @@
             "send": "\"Failed to generate pdf report.\""
         },
         "dataModelIsArray": false,
+        "cookies": [],
         "inputs": 1,
         "outputs": 0,
         "erd": "",
@@ -314,7 +317,7 @@
         "wires": [],
         "__n_excludedFromValidation__": {},
         "generateNext": false,
-        "serviceName": "post_pdf_report",
+        "serviceName": "get_pdf_report",
         "generated": true
     },
     {
@@ -334,7 +337,165 @@
         ],
         "__n_excludedFromValidation__": {},
         "generateNext": false,
-        "serviceName": "post_pdf_report",
+        "serviceName": "get_pdf_report",
+        "generated": true
+    },
+    {
+        "id": "sd_596lQy08yPyPso25",
+        "type": "Session",
+        "z": "SSD_SERVICE_ID_sd_Cai4hEDise9lBbSA",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "userInfo",
+        "operationType": "get",
+        "data": "",
+        "resultMapping": "bh.local.userInfo",
+        "dataMapping": "bh",
+        "functionName": "userInfo",
+        "category": "HTTP",
+        "x": 205,
+        "y": 180,
+        "wires": [
+            [
+                "sd_kaY02o3IP1brFCw0"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "userInfo",
+                "constant": false
+            },
+            "dataMapping": {
+                "type": "bh",
+                "value": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_pdf_report",
+        "generated": true
+    },
+    {
+        "id": "sd_r7CHKXCDB6QDiUNY",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_Cai4hEDise9lBbSA",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "audit-logs",
+        "script": "bh.local.insertAuditURL = `http://localhost:8081/api/audits`;\n\nbh.local.auditDocument = {\n  timestamp: new Date(),\n  operation: \"GENERATE_PDF\",\n  resourceId: \"N/A\",\n  userId: bh.local?.username || \"N/A\"\n}",
+        "functionName": "auditLogs",
+        "category": "Function",
+        "x": 505,
+        "y": 60,
+        "wires": [
+            [
+                "sd_OBJLGHYDHoZhsK9e"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_pdf_report",
+        "generated": true
+    },
+    {
+        "id": "sd_OBJLGHYDHoZhsK9e",
+        "type": "ServerHttpRequest",
+        "z": "SSD_SERVICE_ID_sd_Cai4hEDise9lBbSA",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "audit http req",
+        "method": "post",
+        "methodMappingObj": {},
+        "urlMapping": "bh.local.insertAuditURL",
+        "urlMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "insertAuditURL"
+        },
+        "ret": "json",
+        "retMappingObj": {},
+        "reqBody": "bh.local.auditDocument",
+        "reqBodyObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "auditDocument"
+        },
+        "resultMapping": "bh.local.audit_save_response",
+        "resultMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "audit_save_response"
+        },
+        "headers": {},
+        "headersObj": [],
+        "headerMappingObj": {},
+        "params": {},
+        "paramsObj": [],
+        "paramMappingObj": {},
+        "useAuthTypeMappingObj": {},
+        "useAuthUsername": "",
+        "useAuthUsernameMappingObj": "",
+        "useAuthPassword": "",
+        "useAuthPasswordMappingObj": "",
+        "useAuthToken": "",
+        "useAuthTokenMappingObj": "",
+        "useQueryString": false,
+        "tls": "",
+        "followRedirect": false,
+        "paytoqs": false,
+        "useAuthentication": false,
+        "rejectUnauthorized": false,
+        "proxy": "",
+        "useProxy": false,
+        "usetls": false,
+        "cookiesMapObj": {},
+        "cookiesList": {},
+        "switchStates": {
+            "cookies": "Map"
+        },
+        "editableListData": {},
+        "timeout": {
+            "type": "num",
+            "value": ""
+        },
+        "functionName": "auditHttpReq",
+        "category": "HTTP",
+        "x": 605,
+        "y": 60,
+        "wires": [
+            [
+                "sd_KeuwTDMCAgHCVJ6p"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_pdf_report",
+        "generated": true
+    },
+    {
+        "id": "sd_KeuwTDMCAgHCVJ6p",
+        "type": "ServerLog",
+        "z": "SSD_SERVICE_ID_sd_Cai4hEDise9lBbSA",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "audit log",
+        "outputs": 0,
+        "logObject": "bh.local.audit_save_response",
+        "logLevel": "info",
+        "functionName": "auditLog",
+        "category": "General",
+        "x": 705,
+        "y": 60,
+        "wires": [],
+        "__ssdTypeInputs__": {
+            "logObject": {
+                "type": "bh.local",
+                "value": "audit_save_response",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_pdf_report",
         "generated": true
     }
 ]

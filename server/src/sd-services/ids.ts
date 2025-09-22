@@ -872,7 +872,7 @@ export class ids {
         method: 'post',
         headers: {},
         followRedirects: true,
-        cookies: undefined,
+        cookies: {},
         authType: undefined,
         body: bh.local.auditDocument,
         paytoqs: false,
@@ -1011,7 +1011,7 @@ export class ids {
       }
 
       this.tracerService.sendData(spanInst, bh);
-      bh = await this.sd_GR786ekV2jBGwMJa(bh, parentSpanInst);
+      bh = await this.logoutAuditLog(bh, parentSpanInst);
       //appendnew_next_sd_jPcOnHuVmUwwLnvz
       return bh;
     } catch (e) {
@@ -1022,6 +1022,90 @@ export class ids {
         spanInst,
         'sd_jPcOnHuVmUwwLnvz'
       );
+    }
+  }
+
+  async logoutAuditLog(bh, parentSpanInst) {
+    const spanInst = this.tracerService.createSpan(
+      'logoutAuditLog',
+      parentSpanInst
+    );
+    try {
+      console.log('logout sessionData', bh.local.sessionData);
+
+      bh.local.insertAuditURL = `http://localhost:8081/api/audits`;
+
+      bh.local.auditDocument = {
+        timestamp: new Date(),
+        operation: 'LOGOUT',
+        resourceId: 'N/A',
+        userId: bh.local.sessionData?.data?.userInfo?.username || 'N/A',
+      };
+      this.tracerService.sendData(spanInst, bh);
+      bh = await this.sd_d8luxuX5yy5PT3R3(bh, parentSpanInst);
+      //appendnew_next_logoutAuditLog
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(
+        bh,
+        e,
+        'sd_FPoPo89HMIUw2h8A',
+        spanInst,
+        'logoutAuditLog'
+      );
+    }
+  }
+
+  async sd_d8luxuX5yy5PT3R3(bh, parentSpanInst) {
+    try {
+      let requestOptions: any = {
+        url: bh.local.insertAuditURL,
+        timeout: 30000,
+        method: 'post',
+        headers: {},
+        followRedirects: true,
+        cookies: {},
+        authType: undefined,
+        body: bh.local.auditDocument,
+        paytoqs: false,
+        proxyConfig: undefined,
+        tlsConfig: undefined,
+        ret: 'json',
+        params: {},
+        username: undefined,
+        password: undefined,
+        token: undefined,
+        useQuerystring: false,
+      };
+      requestOptions.rejectUnauthorized = false;
+      requestOptions.tlsConfig = undefined;
+      requestOptions.proxyConfig = undefined;
+      let responseMsg: any = await this.sdService.httpRequest(
+        requestOptions.url,
+        requestOptions.timeout,
+        requestOptions.method,
+        requestOptions.headers,
+        requestOptions.followRedirects,
+        requestOptions.cookies,
+        requestOptions.authType,
+        requestOptions.body,
+        requestOptions.paytoqs,
+        requestOptions.proxyConfig,
+        requestOptions.tlsConfig,
+        requestOptions.ret,
+        requestOptions.params,
+        requestOptions.rejectUnauthorized,
+        requestOptions.username,
+        requestOptions.password,
+        requestOptions.token
+      );
+
+      bh.local.audit_save_response = responseMsg;
+      bh = await this.sd_GR786ekV2jBGwMJa(bh, parentSpanInst);
+      //appendnew_next_sd_d8luxuX5yy5PT3R3
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(bh, e, 'sd_d8luxuX5yy5PT3R3');
     }
   }
 

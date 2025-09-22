@@ -17,7 +17,7 @@
         "z": "SSD_SERVICE_ID_sd_Gp3QvPJWSiLEOyxK",
         "viewType": "server",
         "nodeType": "start",
-        "name": "",
+        "name": "get_book_exists",
         "path": "/book/exists",
         "uploadpath": "",
         "summary": "",

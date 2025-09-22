@@ -89,7 +89,7 @@ export class delete_book {
       `${this.serviceBasePath}/books/:isbn`,
       cookieParser(),
       this.sdService.getMiddlesWaresBySequenceId(
-        null,
+        'IDSAuthroizedAPIs',
         'pre',
         this.generatedMiddlewares
       ),
@@ -104,14 +104,14 @@ export class delete_book {
             next
           );
           let parentSpanInst = null;
-          bh = await this.sd_dNQ7pbG3cNCzekuh(bh, parentSpanInst);
+          bh = await this.sd_Pv22QHEFIA8usO5b(bh, parentSpanInst);
           //appendnew_next_sd_0BZtispv1y1i3njz
         } catch (e) {
           return await this.errorHandler(bh, e, 'sd_0BZtispv1y1i3njz');
         }
       },
       this.sdService.getMiddlesWaresBySequenceId(
-        null,
+        'IDSAuthroizedAPIs',
         'post',
         this.generatedMiddlewares
       )
@@ -121,6 +121,32 @@ export class delete_book {
   //   service flows_delete_book
 
   //appendnew_flow_delete_book_start
+
+  async sd_Pv22QHEFIA8usO5b(bh, parentSpanInst) {
+    const spanInst = this.tracerService.createSpan(
+      'sd_Pv22QHEFIA8usO5b',
+      parentSpanInst
+    );
+    try {
+      let requestObject = bh.web.req;
+      if (requestObject.session) {
+        bh.local.userInfo = JSON.parse(JSON.stringify(requestObject.session));
+      }
+
+      this.tracerService.sendData(spanInst, bh);
+      bh = await this.sd_dNQ7pbG3cNCzekuh(bh, parentSpanInst);
+      //appendnew_next_sd_Pv22QHEFIA8usO5b
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(
+        bh,
+        e,
+        'sd_Pv22QHEFIA8usO5b',
+        spanInst,
+        'sd_Pv22QHEFIA8usO5b'
+      );
+    }
+  }
 
   async sd_dNQ7pbG3cNCzekuh(bh, parentSpanInst) {
     const spanInst = this.tracerService.createSpan(
@@ -244,7 +270,7 @@ export class delete_book {
         timestamp: new Date(),
         operation: 'DELETE_BOOK',
         resourceId: bh.input.params.isbn,
-        userId: 'Demo_id_12345678',
+        userId: bh.local.userInfo?.data?.userInfo?.username || 'N/A',
       };
       this.tracerService.sendData(spanInst, bh);
       bh = await this.auditHttpReq(bh, parentSpanInst);
@@ -388,7 +414,7 @@ export class delete_book {
     this.tracerService.sendData(parentSpanInst, bh, true);
     if (
       false ||
-      (await this.sd_r0FBm9025TLvstt0(bh, parentSpanInst))
+      (await this.catchNode(bh, parentSpanInst))
       /*appendnew_next_Catch*/
     ) {
       return bh;
@@ -400,13 +426,13 @@ export class delete_book {
       }
     }
   }
-  async sd_r0FBm9025TLvstt0(bh, parentSpanInst) {
+  async catchNode(bh, parentSpanInst) {
     const catchConnectedNodes = ['sd_K6be70jnj3la4liJ', 'sd_igH3KJxaYm5TMquy'];
     if (catchConnectedNodes.includes(bh.errorSource)) {
       return false;
     }
     bh = await this.sd_K6be70jnj3la4liJ(bh, parentSpanInst);
-    //appendnew_next_sd_r0FBm9025TLvstt0
+    //appendnew_next_catchNode
     return true;
   }
   //appendnew_flow_delete_book_Catch

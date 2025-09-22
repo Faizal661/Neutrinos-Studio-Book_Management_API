@@ -4,6 +4,7 @@ let instance = null;
 //append_imports_start
 
 import cookieParser from 'cookie-parser'; //_splitter_
+import * as safeStringify from 'fast-safe-stringify'; //_splitter_
 import { dirname } from 'path'; //_splitter_
 import { fileURLToPath } from 'url'; //_splitter_
 import { SDBaseService } from '../../services/SDBaseService'; //_splitter_
@@ -13,7 +14,7 @@ import { MongoPersistance } from '../../utils/ndefault-mongodb/Mongodb/MongoPers
 //append_imports_end
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-export class post_pdf_report {
+export class get_pdf_report {
   private sdService = new SDBaseService();
   private tracerService = new TracerService();
   private app;
@@ -29,7 +30,7 @@ export class post_pdf_report {
     middlewareCall,
     globalTimers
   ) {
-    this.serviceName = 'post_pdf_report';
+    this.serviceName = 'get_pdf_report';
     this.app = app;
     this.serviceBasePath = this.app.settings.base;
     this.generatedMiddlewares = generatedeMiddlewares;
@@ -44,7 +45,7 @@ export class post_pdf_report {
     globalTimers?
   ) {
     if (!instance) {
-      instance = new post_pdf_report(
+      instance = new get_pdf_report(
         app,
         generatedeMiddlewares,
         routeCall,
@@ -73,22 +74,22 @@ export class post_pdf_report {
   }
 
   async mountTimers() {
-    //appendnew_flow_post_pdf_report_TimerStart
+    //appendnew_flow_get_pdf_report_TimerStart
   }
 
   private mountAllMiddlewares() {
-    log.debug('mounting all middlewares for service :: post_pdf_report');
-    //appendnew_flow_post_pdf_report_MiddlewareStart
+    log.debug('mounting all middlewares for service :: get_pdf_report');
+    //appendnew_flow_get_pdf_report_MiddlewareStart
   }
 
   private mountAllPaths() {
-    log.debug('mounting all paths for service :: post_pdf_report');
+    log.debug('mounting all paths for service :: get_pdf_report');
 
     this.app['get'](
       `${this.serviceBasePath}/audits/report/pdf`,
       cookieParser(),
       this.sdService.getMiddlesWaresBySequenceId(
-        null,
+        'IDSAuthroizedAPIs',
         'pre',
         this.generatedMiddlewares
       ),
@@ -103,23 +104,46 @@ export class post_pdf_report {
             next
           );
           let parentSpanInst = null;
-          bh = await this.sd_kaY02o3IP1brFCw0(bh, parentSpanInst);
+          bh = await this.userInfo(bh, parentSpanInst);
           //appendnew_next_sd_Uhfjw7ksyDPV8QOZ
         } catch (e) {
           return await this.errorHandler(bh, e, 'sd_Uhfjw7ksyDPV8QOZ');
         }
       },
       this.sdService.getMiddlesWaresBySequenceId(
-        null,
+        'IDSAuthroizedAPIs',
         'post',
         this.generatedMiddlewares
       )
     );
-    //appendnew_flow_post_pdf_report_HttpIn
+    //appendnew_flow_get_pdf_report_HttpIn
   }
-  //   service flows_post_pdf_report
+  //   service flows_get_pdf_report
 
-  //appendnew_flow_post_pdf_report_start
+  //appendnew_flow_get_pdf_report_start
+
+  async userInfo(bh, parentSpanInst) {
+    const spanInst = this.tracerService.createSpan('userInfo', parentSpanInst);
+    try {
+      let requestObject = bh.web.req;
+      if (requestObject.session) {
+        bh.local.userInfo = JSON.parse(JSON.stringify(requestObject.session));
+      }
+
+      this.tracerService.sendData(spanInst, bh);
+      bh = await this.sd_kaY02o3IP1brFCw0(bh, parentSpanInst);
+      //appendnew_next_userInfo
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(
+        bh,
+        e,
+        'sd_596lQy08yPyPso25',
+        spanInst,
+        'userInfo'
+      );
+    }
+  }
 
   async sd_kaY02o3IP1brFCw0(bh, parentSpanInst) {
     const spanInst = this.tracerService.createSpan(
@@ -127,6 +151,10 @@ export class post_pdf_report {
       parentSpanInst
     );
     try {
+      console.log('bh.local.userInfo ====>', bh.local.userInfo);
+      bh.local.username = bh.local.userInfo?.data?.userInfo?.username;
+      console.log('username ====>', bh.local.username);
+
       console.log('query  === ', bh.input.query);
 
       if (bh.input.query?.startDate === 'null') {
@@ -193,6 +221,7 @@ export class post_pdf_report {
       );
       this.tracerService.sendData(spanInst, bh);
       bh = await this.sd_QkDEbXzbSHIJSFYk(bh, parentSpanInst);
+      bh = await this.auditLogs(bh, parentSpanInst);
       //appendnew_next_sd_6MiQeYcc0ZsvjZIx
       return bh;
     } catch (e) {
@@ -303,6 +332,108 @@ export class post_pdf_report {
     }
   }
 
+  async auditLogs(bh, parentSpanInst) {
+    const spanInst = this.tracerService.createSpan('auditLogs', parentSpanInst);
+    try {
+      bh.local.insertAuditURL = `http://localhost:8081/api/audits`;
+
+      bh.local.auditDocument = {
+        timestamp: new Date(),
+        operation: 'GENERATE_PDF',
+        resourceId: 'N/A',
+        userId: bh.local?.username || 'N/A',
+      };
+      this.tracerService.sendData(spanInst, bh);
+      bh = await this.auditHttpReq(bh, parentSpanInst);
+      //appendnew_next_auditLogs
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(
+        bh,
+        e,
+        'sd_r7CHKXCDB6QDiUNY',
+        spanInst,
+        'auditLogs'
+      );
+    }
+  }
+
+  async auditHttpReq(bh, parentSpanInst) {
+    try {
+      let requestOptions: any = {
+        url: bh.local.insertAuditURL,
+        timeout: 30000,
+        method: 'post',
+        headers: {},
+        followRedirects: false,
+        cookies: undefined,
+        authType: undefined,
+        body: bh.local.auditDocument,
+        paytoqs: false,
+        proxyConfig: undefined,
+        tlsConfig: undefined,
+        ret: 'json',
+        params: {},
+        username: undefined,
+        password: undefined,
+        token: undefined,
+        useQuerystring: false,
+      };
+      requestOptions.rejectUnauthorized = false;
+      requestOptions.tlsConfig = undefined;
+      requestOptions.proxyConfig = undefined;
+      let responseMsg: any = await this.sdService.httpRequest(
+        requestOptions.url,
+        requestOptions.timeout,
+        requestOptions.method,
+        requestOptions.headers,
+        requestOptions.followRedirects,
+        requestOptions.cookies,
+        requestOptions.authType,
+        requestOptions.body,
+        requestOptions.paytoqs,
+        requestOptions.proxyConfig,
+        requestOptions.tlsConfig,
+        requestOptions.ret,
+        requestOptions.params,
+        requestOptions.rejectUnauthorized,
+        requestOptions.username,
+        requestOptions.password,
+        requestOptions.token
+      );
+
+      bh.local.audit_save_response = responseMsg;
+      this.auditLog(bh, parentSpanInst);
+      //appendnew_next_auditHttpReq
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(bh, e, 'sd_OBJLGHYDHoZhsK9e');
+    }
+  }
+
+  async auditLog(bh, parentSpanInst) {
+    const spanInst = this.tracerService.createSpan('auditLog', parentSpanInst);
+    try {
+      let logobj: any = bh.local.audit_save_response;
+      if (logobj instanceof Error) {
+        log.info(logobj);
+      } else {
+        log.info(safeStringify.default(logobj));
+      }
+      this.tracerService.sendData(spanInst, bh);
+      //appendnew_next_auditLog
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(
+        bh,
+        e,
+        'sd_KeuwTDMCAgHCVJ6p',
+        spanInst,
+        'auditLog'
+      );
+    }
+  }
+
   async sd_VoNMKw7spVnGneki(bh, parentSpanInst) {
     try {
       bh.web.res.status(500).send('Failed to generate pdf report.');
@@ -330,7 +461,7 @@ export class post_pdf_report {
     this.tracerService.sendData(parentSpanInst, bh, true);
     if (
       false ||
-      (await this.sd_gwBtp0TuE7cbJQiB(bh, parentSpanInst))
+      (await this.catchNode(bh, parentSpanInst))
       /*appendnew_next_Catch*/
     ) {
       return bh;
@@ -342,14 +473,14 @@ export class post_pdf_report {
       }
     }
   }
-  async sd_gwBtp0TuE7cbJQiB(bh, parentSpanInst) {
+  async catchNode(bh, parentSpanInst) {
     const catchConnectedNodes = ['sd_VoNMKw7spVnGneki'];
     if (catchConnectedNodes.includes(bh.errorSource)) {
       return false;
     }
     await this.sd_VoNMKw7spVnGneki(bh, parentSpanInst);
-    //appendnew_next_sd_gwBtp0TuE7cbJQiB
+    //appendnew_next_catchNode
     return true;
   }
-  //appendnew_flow_post_pdf_report_Catch
+  //appendnew_flow_get_pdf_report_Catch
 }

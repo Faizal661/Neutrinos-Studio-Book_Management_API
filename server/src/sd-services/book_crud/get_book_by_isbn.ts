@@ -88,7 +88,7 @@ export class get_book_by_isbn {
       `${this.serviceBasePath}/books/:isbn`,
       cookieParser(),
       this.sdService.getMiddlesWaresBySequenceId(
-        null,
+        'IDSAuthroizedAPIs',
         'pre',
         this.generatedMiddlewares
       ),
@@ -103,14 +103,14 @@ export class get_book_by_isbn {
             next
           );
           let parentSpanInst = null;
-          bh = await this.validateIsbn(bh, parentSpanInst);
+          bh = await this.userInfo(bh, parentSpanInst);
           //appendnew_next_sd_aSYjxBKjqgKlWYc4
         } catch (e) {
           return await this.errorHandler(bh, e, 'sd_aSYjxBKjqgKlWYc4');
         }
       },
       this.sdService.getMiddlesWaresBySequenceId(
-        null,
+        'IDSAuthroizedAPIs',
         'post',
         this.generatedMiddlewares
       )
@@ -121,15 +121,35 @@ export class get_book_by_isbn {
 
   //appendnew_flow_get_book_by_isbn_start
 
+  async userInfo(bh, parentSpanInst) {
+    const spanInst = this.tracerService.createSpan('userInfo', parentSpanInst);
+    try {
+      let requestObject = bh.web.req;
+      if (requestObject.session) {
+        bh.local.userInfo = JSON.parse(JSON.stringify(requestObject.session));
+      }
+
+      this.tracerService.sendData(spanInst, bh);
+      bh = await this.validateIsbn(bh, parentSpanInst);
+      //appendnew_next_userInfo
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(
+        bh,
+        e,
+        'sd_8rOhelcmroYMqs75',
+        spanInst,
+        'userInfo'
+      );
+    }
+  }
+
   async validateIsbn(bh, parentSpanInst) {
     const spanInst = this.tracerService.createSpan(
       'validateIsbn',
       parentSpanInst
     );
     try {
-      console.log('1.req params ====>');
-      console.log(bh.input.params);
-
       // old api
       // bh.local.openLibraryUrl =`https://openlibrary.org/isbn/${bh.input.params.isbn}`;
 
@@ -159,7 +179,7 @@ export class get_book_by_isbn {
         method: 'get',
         headers: {},
         followRedirects: true,
-        cookies: undefined,
+        cookies: {},
         authType: undefined,
         body: undefined,
         paytoqs: false,
@@ -254,7 +274,7 @@ export class get_book_by_isbn {
         timestamp: new Date(),
         operation: 'READ_BOOK',
         resourceId: bh.input.params.isbn,
-        userId: 'Demo_id_12345678',
+        userId: bh.local.userInfo?.data?.userInfo?.username || 'N/A',
       };
       this.tracerService.sendData(spanInst, bh);
       bh = await this.auditHttpReq(bh, parentSpanInst);
@@ -406,7 +426,7 @@ export class get_book_by_isbn {
     this.tracerService.sendData(parentSpanInst, bh, true);
     if (
       false ||
-      (await this.sd_uSrWOa5zO4F2blH4(bh, parentSpanInst))
+      (await this.catchNode(bh, parentSpanInst))
       /*appendnew_next_Catch*/
     ) {
       return bh;
@@ -418,13 +438,13 @@ export class get_book_by_isbn {
       }
     }
   }
-  async sd_uSrWOa5zO4F2blH4(bh, parentSpanInst) {
+  async catchNode(bh, parentSpanInst) {
     const catchConnectedNodes = ['sd_OgENpNPx7Rbg1lAe', 'sd_NpJyeu1vbImRFTCL'];
     if (catchConnectedNodes.includes(bh.errorSource)) {
       return false;
     }
     bh = await this.sd_OgENpNPx7Rbg1lAe(bh, parentSpanInst);
-    //appendnew_next_sd_uSrWOa5zO4F2blH4
+    //appendnew_next_catchNode
     return true;
   }
   //appendnew_flow_get_book_by_isbn_Catch

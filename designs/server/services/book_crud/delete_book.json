@@ -49,7 +49,7 @@
         "pipeline": "",
         "functionName": "deleteBook",
         "category": "Storage",
-        "x": 345,
+        "x": 485,
         "y": 200,
         "wires": [
             [
@@ -95,20 +95,19 @@
         "z": "SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS",
         "viewType": "server",
         "nodeType": "start",
-        "name": "delete-one-book",
+        "name": "delete_book",
         "path": "/books/:isbn",
         "uploadpath": "",
         "summary": "",
         "description": "",
         "method": "delete",
-        "sequenceId": "",
+        "sequenceId": "IDSAuthroizedAPIs",
         "consumes": "",
         "produces": "",
         "filetype": "path",
         "acceptFileUpload": false,
         "useDataModel": false,
         "dataModelIsArray": false,
-        "uploadFileOptions": "",
         "erd": "",
         "erdName": "",
         "entity": "",
@@ -124,11 +123,11 @@
         "outputs": 1,
         "validateRequestUsingSwaggerDocs": false,
         "category": "HTTP",
-        "x": 120,
+        "x": 85,
         "y": 200,
         "wires": [
             [
-                "sd_dNQ7pbG3cNCzekuh"
+                "sd_Pv22QHEFIA8usO5b"
             ]
         ],
         "__ssdTypeInputs__": {
@@ -171,7 +170,6 @@
             "send": "bh.local.result"
         },
         "dataModelIsArray": false,
-        "cookies": [],
         "inputs": 1,
         "outputs": 0,
         "erd": "",
@@ -190,7 +188,7 @@
         },
         "functionName": "sd_o84CzpWSOXuOmE0x",
         "category": "HTTP",
-        "x": 665,
+        "x": 765,
         "y": 200,
         "wires": [],
         "__n_excludedFromValidation__": {},
@@ -210,7 +208,7 @@
         "logLevel": "info",
         "functionName": "deleteLog",
         "category": "General",
-        "x": 445,
+        "x": 565,
         "y": 260,
         "wires": [],
         "__ssdTypeInputs__": {
@@ -235,7 +233,7 @@
         "script": "console.log('aaa  ',bh.input.params.isbn)\n\n\nbh.local.filter = {\n  isbn:bh.input.params.isbn\n};",
         "functionName": "sd_dNQ7pbG3cNCzekuh",
         "category": "Function",
-        "x": 225,
+        "x": 345,
         "y": 200,
         "wires": [
             [
@@ -257,7 +255,7 @@
         "script": "bh.local.result={\n    ...bh.local.result,\n    status:200\n}",
         "functionName": "sd_JTGJogBJZf2MT7ir",
         "category": "Function",
-        "x": 525,
+        "x": 625,
         "y": 200,
         "wires": [
             [
@@ -276,7 +274,7 @@
         "z": "SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS",
         "viewType": "common",
         "nodeType": "start",
-        "name": "",
+        "name": "catch_node",
         "selectedNodes": "all-nodes",
         "selectCatchType": "allnodes",
         "masternodeList": "",
@@ -284,7 +282,7 @@
             "sd_K6be70jnj3la4liJ",
             "sd_igH3KJxaYm5TMquy"
         ],
-        "functionName": "sd_r0FBm9025TLvstt0",
+        "functionName": "catchNode",
         "category": "General",
         "x": 445,
         "y": 380,
@@ -440,7 +438,7 @@
         },
         "functionName": "auditHttpReq",
         "category": "HTTP",
-        "x": 685,
+        "x": 785,
         "y": 80,
         "wires": [
             [
@@ -459,10 +457,10 @@
         "viewType": "common",
         "nodeType": "flow",
         "name": "audit-logs",
-        "script": "bh.local.insertAuditURL = `http://localhost:8081/api/audits`;\n\nbh.local.auditDocument=  {\n    timestamp: new Date(),\n    operation: \"DELETE_BOOK\",\n    resourceId: bh.input.params.isbn,\n    userId: \"Demo_id_12345678\"\n  }",
+        "script": "bh.local.insertAuditURL = `http://localhost:8081/api/audits`;\n\nbh.local.auditDocument=  {\n    timestamp: new Date(),\n    operation: \"DELETE_BOOK\",\n    resourceId: bh.input.params.isbn,\n    userId: bh.local.userInfo?.data?.userInfo?.username || \"N/A\"\n  }",
         "functionName": "auditLogs",
         "category": "Function",
-        "x": 585,
+        "x": 685,
         "y": 80,
         "wires": [
             [
@@ -486,13 +484,50 @@
         "logLevel": "info",
         "functionName": "auditLog",
         "category": "General",
-        "x": 785,
+        "x": 885,
         "y": 80,
         "wires": [],
         "__ssdTypeInputs__": {
             "logObject": {
                 "type": "bh.local",
                 "value": "audit_save_response",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "delete_book",
+        "generated": true
+    },
+    {
+        "id": "sd_Pv22QHEFIA8usO5b",
+        "type": "Session",
+        "z": "SSD_SERVICE_ID_sd_FS7JWNQS7zkBwQCS",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "operationType": "get",
+        "data": "",
+        "resultMapping": "bh.local.userInfo",
+        "dataMapping": "bh",
+        "functionName": "sd_Pv22QHEFIA8usO5b",
+        "category": "HTTP",
+        "x": 225,
+        "y": 200,
+        "wires": [
+            [
+                "sd_dNQ7pbG3cNCzekuh"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "userInfo",
+                "constant": false
+            },
+            "dataMapping": {
+                "type": "bh",
+                "value": "",
                 "constant": false
             }
         },

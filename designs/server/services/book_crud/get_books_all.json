@@ -23,14 +23,13 @@
         "summary": "",
         "description": "",
         "method": "get",
-        "sequenceId": "",
+        "sequenceId": "IDSAuthroizedAPIs",
         "consumes": "",
         "produces": "",
         "filetype": "path",
         "acceptFileUpload": false,
         "useDataModel": false,
         "dataModelIsArray": false,
-        "uploadFileOptions": "",
         "erd": "",
         "erdName": "",
         "entity": "",
@@ -65,7 +64,8 @@
         "__n_excludedFromValidation__": {},
         "generateNext": true,
         "serviceName": "get_books_all",
-        "functionName": "sd_yposWwdswmuadTP5"
+        "functionName": "sd_yposWwdswmuadTP5",
+        "generated": false
     },
     {
         "id": "sd_RQf3yge2hIy5xwo3",
@@ -112,7 +112,7 @@
         },
         "functionName": "sd_RQf3yge2hIy5xwo3",
         "category": "HTTP",
-        "x": 625,
+        "x": 765,
         "y": 100,
         "wires": [],
         "__n_excludedFromValidation__": {},
@@ -127,10 +127,10 @@
         "viewType": "common",
         "nodeType": "flow",
         "name": "",
-        "script": "console.log(\"query\", bh.input.query);\n\nlet page = parseInt(bh.input.query.page) || 1;\nlet limit =  parseInt(bh.input.query.limit) || 5;\nlet skip = (page - 1) * limit;\n\nbh.local.limit=limit\nbh.local.skip=skip\nbh.local.pipeline=[{$match:{}},{$skip:skip},{$limit:limit}]\n\n",
+        "script": "\nconsole.log(\"query\", bh.input.query);\n\nlet page = parseInt(bh.input.query.page) || 1;\nlet limit =  parseInt(bh.input.query.limit) || 5;\nlet skip = (page - 1) * limit;\n\nbh.local.limit=limit\nbh.local.skip=skip\nbh.local.pipeline=[{$match:{}},{$skip:skip},{$limit:limit}]\n\n",
         "functionName": "sd_Zt9sD5O30Bv8uukJ",
         "category": "Function",
-        "x": 225,
+        "x": 365,
         "y": 100,
         "wires": [
             [
@@ -222,7 +222,7 @@
         "script": "\nbh.local.response={\n    totalDocuments:bh.local.result[0].local.docsCount.count,\n    bookData:bh.local.result[1].local.bookData,\n    limit:bh.local.limit\n}\n\n// console.log(' ===>' ,bh.local.response)",
         "functionName": "sd_jwkXo8Ln3q3VF9CX",
         "category": "Function",
-        "x": 485,
+        "x": 625,
         "y": 100,
         "wires": [
             [
@@ -240,7 +240,7 @@
         "z": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
         "viewType": "client-server",
         "nodeType": "start",
-        "name": "countDocuments of books",
+        "name": "books_count",
         "outputs": 1,
         "inputVariables": [],
         "localVariables": [
@@ -254,7 +254,7 @@
             }
         ],
         "accept_bh": false,
-        "functionName": "countDocumentsOfBooks",
+        "functionName": "booksCount",
         "category": "General",
         "x": 185,
         "y": 240,
@@ -265,7 +265,8 @@
         ],
         "__n_excludedFromValidation__": {},
         "generateNext": true,
-        "serviceName": "get_books_all"
+        "serviceName": "get_books_all",
+        "generated": false
     },
     {
         "id": "sd_jApssqRx5eOoYuTv",
@@ -279,7 +280,8 @@
                 "serviceId": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
                 "serviceName": "get_books_all",
                 "flowId": "sd_lpujAFTkOJU4Ickr",
-                "functionName": "countDocumentsOfBooks",
+                "flowName": "books_count",
+                "functionName": "booksCount",
                 "inputParams": [],
                 "inputVariables": [],
                 "accept_bh": false,
@@ -290,7 +292,8 @@
                 "serviceId": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
                 "serviceName": "get_books_all",
                 "flowId": "sd_ofhL4tJiHS6w3mxG",
-                "functionName": "fetchPaginatedBooksData",
+                "flowName": "books_data_paginated",
+                "functionName": "booksDataPaginated",
                 "inputParams": [
                     "bh.local.pipeline"
                 ],
@@ -312,7 +315,8 @@
                 "serviceId": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
                 "serviceName": "get_books_all",
                 "flowId": "sd_lpujAFTkOJU4Ickr",
-                "functionName": "countDocumentsOfBooks",
+                "flowName": "books_count",
+                "functionName": "booksCount",
                 "inputParams": [],
                 "inputVariables": [],
                 "accept_bh": false,
@@ -323,7 +327,8 @@
                 "serviceId": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
                 "serviceName": "get_books_all",
                 "flowId": "sd_ofhL4tJiHS6w3mxG",
-                "functionName": "fetchPaginatedBooksData",
+                "flowName": "books_data_paginated",
+                "functionName": "booksDataPaginated",
                 "inputParams": [
                     "bh.local.pipeline"
                 ],
@@ -344,7 +349,7 @@
         "isValidNode": true,
         "functionName": "sd_jApssqRx5eOoYuTv",
         "category": "Function",
-        "x": 365,
+        "x": 505,
         "y": 100,
         "wires": [
             [
@@ -359,9 +364,9 @@
             }
         },
         "__n_excludedFromValidation__": {},
+        "generated": true,
         "generateNext": false,
-        "serviceName": "get_books_all",
-        "generated": true
+        "serviceName": "get_books_all"
     },
     {
         "id": "sd_TTi44D0nuM3T0w8V",
@@ -444,7 +449,7 @@
         "z": "SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2h",
         "viewType": "client-server",
         "nodeType": "start",
-        "name": "fetch paginated books data ",
+        "name": "books_data_paginated",
         "outputs": 1,
         "inputVariables": [
             {
@@ -467,7 +472,7 @@
             }
         ],
         "accept_bh": false,
-        "functionName": "fetchPaginatedBooksData",
+        "functionName": "booksDataPaginated",
         "category": "General",
         "x": 185,
         "y": 340,
@@ -478,6 +483,7 @@
         ],
         "__n_excludedFromValidation__": {},
         "generateNext": true,
-        "serviceName": "get_books_all"
+        "serviceName": "get_books_all",
+        "generated": false
     }
 ]

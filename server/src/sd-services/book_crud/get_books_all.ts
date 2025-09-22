@@ -88,7 +88,7 @@ export class get_books_all {
       `${this.serviceBasePath}/books`,
       cookieParser(),
       this.sdService.getMiddlesWaresBySequenceId(
-        null,
+        'IDSAuthroizedAPIs',
         'pre',
         this.generatedMiddlewares
       ),
@@ -110,7 +110,7 @@ export class get_books_all {
         }
       },
       this.sdService.getMiddlesWaresBySequenceId(
-        null,
+        'IDSAuthroizedAPIs',
         'post',
         this.generatedMiddlewares
       )
@@ -119,9 +119,9 @@ export class get_books_all {
   }
   //   service flows_get_books_all
 
-  async countDocumentsOfBooks(parentSpanInst, ...others) {
+  async booksCount(parentSpanInst, ...others) {
     const spanInst = this.tracerService.createSpan(
-      'countDocumentsOfBooks',
+      'booksCount',
       parentSpanInst
     );
     let bh: any = {
@@ -134,7 +134,7 @@ export class get_books_all {
       bh = this.sdService.__constructDefault(bh);
       this.tracerService.sendData(spanInst, bh);
       bh = await this.sd_hFxAVNik7wrY0Njs(bh, parentSpanInst);
-      //appendnew_next_countDocumentsOfBooks
+      //appendnew_next_booksCount
       return (
         // formatting output variables
         {
@@ -150,18 +150,18 @@ export class get_books_all {
         e,
         'sd_lpujAFTkOJU4Ickr',
         spanInst,
-        'countDocumentsOfBooks'
+        'booksCount'
       );
     }
   }
 
-  async fetchPaginatedBooksData(
+  async booksDataPaginated(
     parentSpanInst,
     pipeline: any = undefined,
     ...others
   ) {
     const spanInst = this.tracerService.createSpan(
-      'fetchPaginatedBooksData',
+      'booksDataPaginated',
       parentSpanInst
     );
     let bh: any = {
@@ -176,7 +176,7 @@ export class get_books_all {
       bh = this.sdService.__constructDefault(bh);
       this.tracerService.sendData(spanInst, bh);
       bh = await this.sd_TTi44D0nuM3T0w8V(bh, parentSpanInst);
-      //appendnew_next_fetchPaginatedBooksData
+      //appendnew_next_booksDataPaginated
       return (
         // formatting output variables
         {
@@ -192,7 +192,7 @@ export class get_books_all {
         e,
         'sd_ofhL4tJiHS6w3mxG',
         spanInst,
-        'fetchPaginatedBooksData'
+        'booksDataPaginated'
       );
     }
   }
@@ -239,12 +239,10 @@ export class get_books_all {
       const SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2hInstance: get_books_all =
         get_books_all.getInstance();
       promiseArray.push(
-        SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2hInstance.countDocumentsOfBooks(
-          spanInst
-        )
+        SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2hInstance.booksCount(spanInst)
       );
       promiseArray.push(
-        SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2hInstance.fetchPaginatedBooksData(
+        SSD_SERVICE_ID_sd_Hr5Ez4lqm0iH7h2hInstance.booksDataPaginated(
           spanInst,
           bh.local.pipeline
         )

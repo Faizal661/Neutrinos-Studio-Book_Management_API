@@ -88,7 +88,7 @@ export class get_audit_logs {
       `${this.serviceBasePath}/audits`,
       cookieParser(),
       this.sdService.getMiddlesWaresBySequenceId(
-        null,
+        'IDSAuthroizedAPIs',
         'pre',
         this.generatedMiddlewares
       ),
@@ -110,7 +110,7 @@ export class get_audit_logs {
         }
       },
       this.sdService.getMiddlesWaresBySequenceId(
-        null,
+        'IDSAuthroizedAPIs',
         'post',
         this.generatedMiddlewares
       )
@@ -153,6 +153,7 @@ export class get_audit_logs {
 
       if (operations && operations.length > 0) {
         matchConditions['operation'] = { $in: operations };
+        console.log('operations ====>>> ', operations);
       }
 
       function isValidDate(date) {

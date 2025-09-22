@@ -104,7 +104,7 @@ export class post_book {
             next
           );
           let parentSpanInst = null;
-          bh = await this.sd_oLGmKKBKT8316qob(bh, parentSpanInst);
+          bh = await this.sd_PmzMK1NfkTC5vWQ7(bh, parentSpanInst);
           //appendnew_next_sd_5AnkJ0rJBgjvtPvu
         } catch (e) {
           return await this.errorHandler(bh, e, 'sd_5AnkJ0rJBgjvtPvu');
@@ -121,6 +121,32 @@ export class post_book {
   //   service flows_post_book
 
   //appendnew_flow_post_book_start
+
+  async sd_PmzMK1NfkTC5vWQ7(bh, parentSpanInst) {
+    const spanInst = this.tracerService.createSpan(
+      'sd_PmzMK1NfkTC5vWQ7',
+      parentSpanInst
+    );
+    try {
+      let requestObject = bh.web.req;
+      if (requestObject.session) {
+        bh.local.userInfo = JSON.parse(JSON.stringify(requestObject.session));
+      }
+
+      this.tracerService.sendData(spanInst, bh);
+      bh = await this.sd_oLGmKKBKT8316qob(bh, parentSpanInst);
+      //appendnew_next_sd_PmzMK1NfkTC5vWQ7
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(
+        bh,
+        e,
+        'sd_PmzMK1NfkTC5vWQ7',
+        spanInst,
+        'sd_PmzMK1NfkTC5vWQ7'
+      );
+    }
+  }
 
   async sd_oLGmKKBKT8316qob(bh, parentSpanInst) {
     const spanInst = this.tracerService.createSpan(
@@ -158,7 +184,7 @@ export class post_book {
         method: 'get',
         headers: {},
         followRedirects: true,
-        cookies: undefined,
+        cookies: {},
         authType: undefined,
         body: undefined,
         paytoqs: false,
@@ -247,7 +273,7 @@ export class post_book {
         method: 'get',
         headers: {},
         followRedirects: true,
-        cookies: undefined,
+        cookies: {},
         authType: undefined,
         body: undefined,
         paytoqs: false,
@@ -403,7 +429,7 @@ export class post_book {
         timestamp: new Date(),
         operation: 'CREATE_BOOK',
         resourceId: bh.input.body.isbn,
-        userId: 'Demo_id_12345678',
+        userId: bh.local.userInfo?.data?.userInfo?.username || 'N/A',
       };
       this.tracerService.sendData(spanInst, bh);
       bh = await this.auditHttpReq(bh, parentSpanInst);
@@ -547,7 +573,7 @@ export class post_book {
     this.tracerService.sendData(parentSpanInst, bh, true);
     if (
       false ||
-      (await this.sd_4w5E1psC6qnWvV12(bh, parentSpanInst))
+      (await this.catchNode(bh, parentSpanInst))
       /*appendnew_next_Catch*/
     ) {
       return bh;
@@ -559,13 +585,13 @@ export class post_book {
       }
     }
   }
-  async sd_4w5E1psC6qnWvV12(bh, parentSpanInst) {
+  async catchNode(bh, parentSpanInst) {
     const catchConnectedNodes = ['sd_5MxSCQbNdhrir6gA', 'sd_sUDFbuua9yK4uTHF'];
     if (catchConnectedNodes.includes(bh.errorSource)) {
       return false;
     }
     bh = await this.sd_5MxSCQbNdhrir6gA(bh, parentSpanInst);
-    //appendnew_next_sd_4w5E1psC6qnWvV12
+    //appendnew_next_catchNode
     return true;
   }
   //appendnew_flow_post_book_Catch

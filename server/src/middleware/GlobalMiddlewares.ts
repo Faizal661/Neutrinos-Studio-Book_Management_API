@@ -21,7 +21,7 @@ export let Middlewares = {
     };
     return cors(corsOptions);
   },
-  sd_7EmxxOk703exD5hF: () => {
+  sd_2X3lHjqYU2gBQCRT: () => {
     let sess: expressSession.SessionOptions = {
       cookie: {
         secure: false,
@@ -30,13 +30,13 @@ export let Middlewares = {
         sameSite: 'lax',
       },
 
-      proxy: false,
+      proxy: true,
 
-      resave: false,
+      resave: true,
 
-      rolling: false,
+      rolling: true,
 
-      saveUninitialized: false,
+      saveUninitialized: true,
 
       secret: 'qPXoLFLDtk',
 

@@ -17,20 +17,19 @@
         "z": "SSD_SERVICE_ID_sd_BXKo8IBXZLOy1iYm",
         "viewType": "server",
         "nodeType": "start",
-        "name": "",
+        "name": "get_book_by_isbn",
         "path": "/books/:isbn",
         "uploadpath": "",
         "summary": "",
         "description": "",
         "method": "get",
-        "sequenceId": "",
+        "sequenceId": "IDSAuthroizedAPIs",
         "consumes": "",
         "produces": "",
         "filetype": "path",
         "acceptFileUpload": false,
         "useDataModel": false,
         "dataModelIsArray": false,
-        "uploadFileOptions": "",
         "erd": "",
         "erdName": "",
         "entity": "",
@@ -52,11 +51,11 @@
         "outputs": 1,
         "validateRequestUsingSwaggerDocs": false,
         "category": "HTTP",
-        "x": 145,
+        "x": 85,
         "y": 200,
         "wires": [
             [
-                "sd_nFbAaKqoiXmJXXuA"
+                "sd_8rOhelcmroYMqs75"
             ]
         ],
         "__ssdTypeInputs__": {
@@ -80,10 +79,10 @@
         "viewType": "common",
         "nodeType": "flow",
         "name": "validate_isbn",
-        "script": "console.log(\"1.req params ====>\")\nconsole.log(bh.input.params)\n\n// old api\n// bh.local.openLibraryUrl =`https://openlibrary.org/isbn/${bh.input.params.isbn}`;\n\n\n// new api\nbh.local.openLibraryUrl =`https://openlibrary.org/api/books?bibkeys=ISBN:${bh.input.params.isbn}&jscmd=data&format=json`;\n",
+        "script": "// old api\n// bh.local.openLibraryUrl =`https://openlibrary.org/isbn/${bh.input.params.isbn}`;\n\n\n// new api\nbh.local.openLibraryUrl =`https://openlibrary.org/api/books?bibkeys=ISBN:${bh.input.params.isbn}&jscmd=data&format=json`;\n",
         "functionName": "validateIsbn",
         "category": "Function",
-        "x": 265,
+        "x": 305,
         "y": 200,
         "wires": [
             [
@@ -103,6 +102,7 @@
         "nodeType": "flow",
         "name": "OpenLibraryFetchUsingISBN",
         "method": "get",
+        "methodMapping": "",
         "methodMappingObj": {},
         "urlMapping": "bh.local.openLibraryUrl",
         "urlMappingObj": {
@@ -110,7 +110,9 @@
             "mapVarValue": "openLibraryUrl"
         },
         "ret": "json",
+        "retMapping": "",
         "retMappingObj": {},
+        "reqBody": "",
         "reqBodyObj": {
             "mapVarType": "bh",
             "mapVarValue": ""
@@ -122,11 +124,16 @@
         },
         "headers": {},
         "headersObj": [],
+        "headerMapping": "",
         "headerMappingObj": {},
         "params": {},
         "paramsObj": [],
+        "paramMapping": "",
         "paramMappingObj": {},
+        "authType": "",
         "useAuthTypeMappingObj": {},
+        "useAuthTypeMap": {},
+        "useAuthType": "",
         "useAuthUsername": "",
         "useAuthUsernameMappingObj": "",
         "useAuthPassword": "",
@@ -142,6 +149,7 @@
         "proxy": "",
         "useProxy": false,
         "usetls": false,
+        "cookies": [],
         "cookiesMapObj": {},
         "cookiesList": {},
         "switchStates": {
@@ -154,7 +162,7 @@
         },
         "functionName": "openLibraryFetchUsingIsbn",
         "category": "HTTP",
-        "x": 405,
+        "x": 425,
         "y": 200,
         "wires": [
             [
@@ -172,7 +180,7 @@
         "z": "SSD_SERVICE_ID_sd_BXKo8IBXZLOy1iYm",
         "viewType": "common",
         "nodeType": "start",
-        "name": "",
+        "name": "catch_node",
         "selectedNodes": "all-nodes",
         "selectCatchType": "allnodes",
         "masternodeList": "",
@@ -180,7 +188,7 @@
             "sd_OgENpNPx7Rbg1lAe",
             "sd_NpJyeu1vbImRFTCL"
         ],
-        "functionName": "sd_uSrWOa5zO4F2blH4",
+        "functionName": "catchNode",
         "category": "General",
         "x": 445,
         "y": 340,
@@ -313,7 +321,7 @@
         },
         "functionName": "sd_Ok70Pa7mTnHqYrGr",
         "category": "HTTP",
-        "x": 665,
+        "x": 685,
         "y": 200,
         "wires": [],
         "__n_excludedFromValidation__": {},
@@ -331,7 +339,7 @@
         "script": "const isbnKey = Object.keys(bh.local.openApiLibraryData.payload)[0];\nconst bookDetails = bh.local.openApiLibraryData.payload[isbnKey];\n\nbh.local.response={\n    openApiLibraryData:bookDetails,\n    status:200\n}\n\nconsole.log('response',bh.local.response)",
         "functionName": "sd_4q6aRayMUo3zSwOq",
         "category": "Function",
-        "x": 545,
+        "x": 565,
         "y": 200,
         "wires": [
             [
@@ -412,7 +420,7 @@
         },
         "functionName": "auditHttpReq",
         "category": "HTTP",
-        "x": 725,
+        "x": 745,
         "y": 80,
         "wires": [
             [
@@ -431,10 +439,10 @@
         "viewType": "common",
         "nodeType": "flow",
         "name": "audit-logs",
-        "script": "bh.local.insertAuditURL = `http://localhost:8081/api/audits`;\n\nbh.local.auditDocument=  {\n    timestamp: new Date(),\n    operation: \"READ_BOOK\",\n    resourceId: bh.input.params.isbn,\n    userId: \"Demo_id_12345678\"\n  }",
+        "script": "bh.local.insertAuditURL = `http://localhost:8081/api/audits`;\n\nbh.local.auditDocument=  {\n    timestamp: new Date(),\n    operation: \"READ_BOOK\",\n    resourceId: bh.input.params.isbn,\n    userId: bh.local.userInfo?.data?.userInfo?.username || \"N/A\"\n  }",
         "functionName": "auditLogs",
         "category": "Function",
-        "x": 625,
+        "x": 645,
         "y": 80,
         "wires": [
             [
@@ -458,13 +466,50 @@
         "logLevel": "info",
         "functionName": "auditLog",
         "category": "General",
-        "x": 825,
+        "x": 845,
         "y": 80,
         "wires": [],
         "__ssdTypeInputs__": {
             "logObject": {
                 "type": "bh.local",
                 "value": "audit_save_response",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_book_by_isbn",
+        "generated": true
+    },
+    {
+        "id": "sd_8rOhelcmroYMqs75",
+        "type": "Session",
+        "z": "SSD_SERVICE_ID_sd_BXKo8IBXZLOy1iYm",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "userInfo",
+        "operationType": "get",
+        "data": "",
+        "resultMapping": "bh.local.userInfo",
+        "dataMapping": "bh",
+        "functionName": "userInfo",
+        "category": "HTTP",
+        "x": 205,
+        "y": 200,
+        "wires": [
+            [
+                "sd_nFbAaKqoiXmJXXuA"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "userInfo",
+                "constant": false
+            },
+            "dataMapping": {
+                "type": "bh",
+                "value": "",
                 "constant": false
             }
         },

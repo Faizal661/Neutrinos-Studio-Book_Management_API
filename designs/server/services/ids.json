@@ -567,7 +567,7 @@
         "acceptFileUpload": false,
         "useDataModel": false,
         "dataModelIsArray": false,
-        "uploadFileOptions": {},
+        "uploadFileOptions": "",
         "erd": "",
         "erdName": "",
         "entity": "",
@@ -590,6 +590,15 @@
                 "sd_1LCaf1Hj3e4RixBl"
             ]
         ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
         "__n_excludedFromValidation__": {},
         "generateNext": true,
         "serviceName": "ids",
@@ -829,6 +838,7 @@
             "send": "bh.local.htmlResponse"
         },
         "dataModelIsArray": false,
+        "cookies": [],
         "inputs": 1,
         "outputs": 0,
         "erd": "",
@@ -892,6 +902,7 @@
             "send": "'Redirecting'"
         },
         "dataModelIsArray": false,
+        "cookies": [],
         "inputs": 1,
         "outputs": 0,
         "erd": "",
@@ -974,6 +985,7 @@
         "acceptFileUpload": false,
         "useDataModel": false,
         "dataModelIsArray": false,
+        "uploadFileOptions": "",
         "erd": "",
         "erdName": "",
         "entity": "",
@@ -1073,6 +1085,7 @@
             "send": "bh.local.session.data.userInfo"
         },
         "dataModelIsArray": false,
+        "cookies": [],
         "inputs": 1,
         "outputs": 0,
         "erd": "",
@@ -1218,7 +1231,7 @@
         "y": 1679.78125,
         "wires": [
             [
-                "sd_GR786ekV2jBGwMJa"
+                "sd_FPoPo89HMIUw2h8A"
             ]
         ],
         "__ssdTypeInputs__": {
@@ -1649,8 +1662,8 @@
         "dataMapping": "bh.input",
         "functionName": "sd_BWn1Bxagr0pCxf7B",
         "category": "HTTP",
-        "x": 500,
-        "y": 2500,
+        "x": 505.00000762939453,
+        "y": 2502.9999389648438,
         "wires": [
             [
                 "sd_1Wqy9JX3kxLt4Hjn"
@@ -2691,6 +2704,7 @@
         "nodeType": "flow",
         "name": "audit http req",
         "method": "post",
+        "methodMapping": "",
         "methodMappingObj": {},
         "urlMapping": "bh.local.insertAuditURL",
         "urlMappingObj": {
@@ -2698,6 +2712,7 @@
             "mapVarValue": "insertAuditURL"
         },
         "ret": "json",
+        "retMapping": "",
         "retMappingObj": {},
         "reqBody": "bh.local.auditDocument",
         "reqBodyObj": {
@@ -2711,11 +2726,16 @@
         },
         "headers": {},
         "headersObj": [],
+        "headerMapping": "",
         "headerMappingObj": {},
         "params": {},
         "paramsObj": [],
+        "paramMapping": "",
         "paramMappingObj": {},
+        "authType": "",
         "useAuthTypeMappingObj": {},
+        "useAuthTypeMap": {},
+        "useAuthType": "",
         "useAuthUsername": "",
         "useAuthUsernameMappingObj": "",
         "useAuthPassword": "",
@@ -2731,6 +2751,7 @@
         "proxy": "",
         "useProxy": false,
         "usetls": false,
+        "cookies": [],
         "cookiesMapObj": {},
         "cookiesList": {},
         "switchStates": {
@@ -2805,13 +2826,14 @@
         "generated": true
     },
     {
-        "id": "sd_2H2cUqO3y9hmV1dm",
+        "id": "sd_d8luxuX5yy5PT3R3",
         "type": "ServerHttpRequest",
         "z": "sd_lbUD9aCyDfXC0GlY",
         "viewType": "server",
         "nodeType": "flow",
         "name": "",
         "method": "post",
+        "methodMapping": "",
         "methodMappingObj": {},
         "urlMapping": "bh.local.insertAuditURL",
         "urlMappingObj": {
@@ -2819,6 +2841,7 @@
             "mapVarValue": "insertAuditURL"
         },
         "ret": "json",
+        "retMapping": "",
         "retMappingObj": {},
         "reqBody": "bh.local.auditDocument",
         "reqBodyObj": {
@@ -2832,11 +2855,16 @@
         },
         "headers": {},
         "headersObj": [],
+        "headerMapping": "",
         "headerMappingObj": {},
         "params": {},
         "paramsObj": [],
+        "paramMapping": "",
         "paramMappingObj": {},
+        "authType": "",
         "useAuthTypeMappingObj": {},
+        "useAuthTypeMap": {},
+        "useAuthType": "",
         "useAuthUsername": "",
         "useAuthUsernameMappingObj": "",
         "useAuthPassword": "",
@@ -2852,6 +2880,7 @@
         "proxy": "",
         "useProxy": false,
         "usetls": false,
+        "cookies": [],
         "cookiesMapObj": {},
         "cookiesList": {},
         "switchStates": {
@@ -2862,64 +2891,40 @@
             "type": "num",
             "value": ""
         },
-        "functionName": "sd_2H2cUqO3y9hmV1dm",
+        "functionName": "sd_d8luxuX5yy5PT3R3",
         "category": "HTTP",
-        "x": 665,
-        "y": 2640,
+        "x": 405,
+        "y": 1780,
         "wires": [
             [
-                "sd_SLiaPH9xs9J41hun"
+                "sd_GR786ekV2jBGwMJa"
             ]
         ],
         "__n_excludedFromValidation__": {},
-        "generateNext": true,
-        "serviceName": "ids"
+        "generateNext": false,
+        "serviceName": "ids",
+        "generated": true
     },
     {
-        "id": "sd_uiQJxvbxi7THeEYv",
+        "id": "sd_FPoPo89HMIUw2h8A",
         "type": "Script",
         "z": "sd_lbUD9aCyDfXC0GlY",
         "viewType": "common",
         "nodeType": "flow",
         "name": "logout-audit-log",
-        "script": "console.log('logout sessionData',bh.local.sessionData)\n\nbh.local.insertAuditURL = `http://localhost:8081/api/audits`;\n\nbh.local.auditDocument=  {\n    timestamp: new Date(),\n    operation: \"LOGOUT\",\n    resourceId: \"N/A\",\n    userId: bh.local.userDetails.userInfo.username\n  }",
+        "script": "console.log('logout sessionData',bh.local.sessionData)\n\nbh.local.insertAuditURL = `http://localhost:8081/api/audits`;\n\nbh.local.auditDocument=  {\n    timestamp: new Date(),\n    operation: \"LOGOUT\",\n    resourceId: \"N/A\",\n    userId: bh.local.sessionData?.data?.userInfo?.username || \"N/A\"\n  }",
         "functionName": "logoutAuditLog",
         "category": "Function",
-        "x": 565,
-        "y": 2640,
+        "x": 305,
+        "y": 1780,
         "wires": [
             [
-                "sd_2H2cUqO3y9hmV1dm"
+                "sd_d8luxuX5yy5PT3R3"
             ]
         ],
         "__n_excludedFromValidation__": {},
-        "generateNext": true,
-        "serviceName": "ids"
-    },
-    {
-        "id": "sd_SLiaPH9xs9J41hun",
-        "type": "ServerLog",
-        "z": "sd_lbUD9aCyDfXC0GlY",
-        "viewType": "server",
-        "nodeType": "flow",
-        "name": "",
-        "outputs": 0,
-        "logObject": "bh.local.audit_save_response",
-        "logLevel": "info",
-        "functionName": "sd_SLiaPH9xs9J41hun",
-        "category": "General",
-        "x": 765,
-        "y": 2640,
-        "wires": [],
-        "__ssdTypeInputs__": {
-            "logObject": {
-                "type": "bh.local",
-                "value": "audit_save_response",
-                "constant": false
-            }
-        },
-        "__n_excludedFromValidation__": {},
-        "generateNext": true,
-        "serviceName": "ids"
+        "generateNext": false,
+        "serviceName": "ids",
+        "generated": true
     }
 ]

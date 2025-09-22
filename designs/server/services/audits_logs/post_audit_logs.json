@@ -17,7 +17,7 @@
         "z": "SSD_SERVICE_ID_sd_ucvFL7JloazU7qcI",
         "viewType": "server",
         "nodeType": "start",
-        "name": "",
+        "name": "post_audit_logs",
         "path": "/audits",
         "uploadpath": "",
         "summary": "",

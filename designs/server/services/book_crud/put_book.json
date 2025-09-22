@@ -17,20 +17,19 @@
         "z": "SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR",
         "viewType": "server",
         "nodeType": "start",
-        "name": "",
+        "name": "put_book",
         "path": "/books/:isbn",
         "uploadpath": "",
         "summary": "",
         "description": "",
         "method": "put",
-        "sequenceId": "",
+        "sequenceId": "IDSAuthroizedAPIs",
         "consumes": "",
         "produces": "",
         "filetype": "path",
         "acceptFileUpload": false,
         "useDataModel": false,
         "dataModelIsArray": false,
-        "uploadFileOptions": "",
         "erd": "",
         "erdName": "",
         "entity": "",
@@ -46,11 +45,11 @@
         "outputs": 1,
         "validateRequestUsingSwaggerDocs": false,
         "category": "HTTP",
-        "x": 125,
+        "x": 85,
         "y": 220,
         "wires": [
             [
-                "sd_JHYYnvmT6yilDPhs"
+                "sd_cufGOS8EvZhaxa1V"
             ]
         ],
         "__ssdTypeInputs__": {
@@ -130,7 +129,7 @@
         "script": "bh.local.filter = {\n  isbn:bh.input.params.isbn\n};\n\nbh.local.updatedData = {\n  $set: {\n    title: bh.input.body.title,\n    publishers:bh.input.body.publishers,\n    publishedYear: bh.input.body.publishedYear,\n  },\n};\n\n\nconsole.log('patch input data ===>  ',bh.input.body)\n",
         "functionName": "sd_JHYYnvmT6yilDPhs",
         "category": "Function",
-        "x": 250,
+        "x": 285,
         "y": 220,
         "wires": [
             [
@@ -181,7 +180,7 @@
         "pipeline": "",
         "functionName": "sd_4E8GCXvPrEtBNw9f",
         "category": "Storage",
-        "x": 365,
+        "x": 400,
         "y": 220,
         "wires": [
             [
@@ -235,7 +234,7 @@
         "script": "bh.local.result={\n    ...bh.local.result,\n    status:200\n}\n\n",
         "functionName": "sd_DbOcK5Jlaob0ZE3l",
         "category": "Function",
-        "x": 485,
+        "x": 520,
         "y": 220,
         "wires": [
             [
@@ -254,7 +253,7 @@
         "z": "SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR",
         "viewType": "common",
         "nodeType": "start",
-        "name": "",
+        "name": "catch_node",
         "selectedNodes": [
             "sd_mHzlC823jEUf4oX3",
             "sd_1OOfc8IS4dWTZaM9",
@@ -267,7 +266,7 @@
         "ignoreList": [
             "sd_PGESEcQjIy1uzRR3"
         ],
-        "functionName": "sd_bYXjsgWbVnviKb4d",
+        "functionName": "catchNode",
         "category": "General",
         "x": 485,
         "y": 320,
@@ -341,6 +340,7 @@
         "nodeType": "flow",
         "name": "audit http req",
         "method": "post",
+        "methodMapping": "",
         "methodMappingObj": {},
         "urlMapping": "bh.local.insertAuditURL",
         "urlMappingObj": {
@@ -348,6 +348,7 @@
             "mapVarValue": "insertAuditURL"
         },
         "ret": "json",
+        "retMapping": "",
         "retMappingObj": {},
         "reqBody": "bh.local.auditDocument",
         "reqBodyObj": {
@@ -361,11 +362,16 @@
         },
         "headers": {},
         "headersObj": [],
+        "headerMapping": "",
         "headerMappingObj": {},
         "params": {},
         "paramsObj": [],
+        "paramMapping": "",
         "paramMappingObj": {},
+        "authType": "",
         "useAuthTypeMappingObj": {},
+        "useAuthTypeMap": {},
+        "useAuthType": "",
         "useAuthUsername": "",
         "useAuthUsernameMappingObj": "",
         "useAuthPassword": "",
@@ -381,6 +387,7 @@
         "proxy": "",
         "useProxy": false,
         "usetls": false,
+        "cookies": [],
         "cookiesMapObj": {},
         "cookiesList": {},
         "switchStates": {
@@ -393,8 +400,8 @@
         },
         "functionName": "auditHttpReq",
         "category": "HTTP",
-        "x": 745,
-        "y": 80,
+        "x": 754.0000114440918,
+        "y": 108.00000381469727,
         "wires": [
             [
                 "sd_Ui9yPkYu5yLOe3vr"
@@ -412,11 +419,11 @@
         "viewType": "common",
         "nodeType": "flow",
         "name": "audit-logs",
-        "script": "bh.local.insertAuditURL = `http://localhost:8081/api/audits`;\n\nbh.local.auditDocument=  {\n    timestamp: new Date(),\n    operation: \"UPDATE_BOOK\",\n    resourceId: bh.input.params.isbn,\n    userId: \"Demo_id_12345678\"\n  }",
+        "script": "bh.local.insertAuditURL = `http://localhost:8081/api/audits`;\n\nbh.local.auditDocument = {\n  timestamp: new Date(),\n  operation: \"UPDATE_BOOK\",\n  resourceId: bh.input.params.isbn,\n  userId: bh.local.userInfo?.data?.userInfo?.username || \"N/A\"\n}",
         "functionName": "auditLogs",
         "category": "Function",
-        "x": 645,
-        "y": 80,
+        "x": 654.0000114440918,
+        "y": 108.00000381469727,
         "wires": [
             [
                 "sd_el46xu95QqB9z0DP"
@@ -439,13 +446,50 @@
         "logLevel": "info",
         "functionName": "auditLog",
         "category": "General",
-        "x": 845,
-        "y": 80,
+        "x": 854.0000114440918,
+        "y": 108.00000381469727,
         "wires": [],
         "__ssdTypeInputs__": {
             "logObject": {
                 "type": "bh.local",
                 "value": "audit_save_response",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "put_book",
+        "generated": true
+    },
+    {
+        "id": "sd_cufGOS8EvZhaxa1V",
+        "type": "Session",
+        "z": "SSD_SERVICE_ID_sd_lKkMhL4BIrzINRhR",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "operationType": "get",
+        "data": "",
+        "resultMapping": "bh.local.userInfo",
+        "dataMapping": "bh",
+        "functionName": "sd_cufGOS8EvZhaxa1V",
+        "category": "HTTP",
+        "x": 185,
+        "y": 220,
+        "wires": [
+            [
+                "sd_JHYYnvmT6yilDPhs"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "userInfo",
+                "constant": false
+            },
+            "dataMapping": {
+                "type": "bh",
+                "value": "",
                 "constant": false
             }
         },

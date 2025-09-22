@@ -19,8 +19,8 @@
         "inputs": 0,
         "outputs": 1,
         "category": "Middleware",
-        "x": 141,
-        "y": 102.8125,
+        "x": 129.00000381469727,
+        "y": 101.81250381469727,
         "wires": [
             [
                 "sd_C9VRO0iOLqxUzNzT"
@@ -99,55 +99,13 @@
         "optionsSuccessStatus": "",
         "functionName": "cors",
         "category": "Global",
-        "x": 561,
-        "y": 102.8125,
+        "x": 586.0000076293945,
+        "y": 102.81250381469727,
         "wires": [
             [
                 "ssd_global_next_id"
             ]
         ],
-        "__n_excludedFromValidation__": {},
-        "generateNext": true
-    },
-    {
-        "id": "sd_7EmxxOk703exD5hF",
-        "type": "GlobalSession",
-        "z": "ssd_mw_ws",
-        "viewType": "server",
-        "nodeType": "middleware",
-        "name": "Global Session",
-        "cookieDomain": "",
-        "cookieSecure": false,
-        "cookieExpires": "",
-        "cookieHttpOnly": false,
-        "cookieMaxAge": "15 * 24 * 60 * 60 * 1000 ",
-        "cookiePath": "",
-        "cookieSameSite": "\"lax\"",
-        "proxy": false,
-        "resave": false,
-        "rolling": false,
-        "saveUninitialized": false,
-        "secret": "\"qPXoLFLDtk\"",
-        "dbConnectionName": "",
-        "unset": "keep",
-        "db": "",
-        "store": "",
-        "functionName": "sd_7EmxxOk703exD5hF",
-        "category": "Global",
-        "x": 421,
-        "y": 102.8125,
-        "wires": [
-            [
-                "sd_Tp9jNbUvUZ1kJnAn"
-            ]
-        ],
-        "__ssdTypeInputs__": {
-            "secret": {
-                "type": "str",
-                "value": "qPXoLFLDtk",
-                "constant": false
-            }
-        },
         "__n_excludedFromValidation__": {},
         "generateNext": true
     },
@@ -159,11 +117,11 @@
         "inputs": 1,
         "outputs": 1,
         "category": "Service",
-        "x": 281,
-        "y": 102.8125,
+        "x": 269.00000381469727,
+        "y": 101.81250381469727,
         "wires": [
             [
-                "sd_7EmxxOk703exD5hF"
+                "sd_2X3lHjqYU2gBQCRT"
             ]
         ],
         "__n_excludedFromValidation__": {},
@@ -242,6 +200,48 @@
         "x": 565,
         "y": 260,
         "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true
+    },
+    {
+        "id": "sd_2X3lHjqYU2gBQCRT",
+        "type": "GlobalSession",
+        "z": "ssd_mw_ws",
+        "viewType": "server",
+        "nodeType": "middleware",
+        "name": "Global Session",
+        "cookieDomain": "",
+        "cookieSecure": false,
+        "cookieExpires": "",
+        "cookieHttpOnly": false,
+        "cookieMaxAge": "15 * 24 * 60 * 60 * 1000 ",
+        "cookiePath": "",
+        "cookieSameSite": "\"lax\"",
+        "proxy": true,
+        "resave": true,
+        "rolling": true,
+        "saveUninitialized": true,
+        "secret": "\"qPXoLFLDtk\"",
+        "dbConnectionName": "",
+        "unset": "keep",
+        "db": "",
+        "store": "memory",
+        "functionName": "sd_2X3lHjqYU2gBQCRT",
+        "category": "Global",
+        "x": 445,
+        "y": 100,
+        "wires": [
+            [
+                "sd_Tp9jNbUvUZ1kJnAn"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "secret": {
+                "type": "str",
+                "value": "qPXoLFLDtk",
+                "constant": false
+            }
+        },
         "__n_excludedFromValidation__": {},
         "generateNext": true
     }
